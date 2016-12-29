@@ -1,0 +1,46 @@
+# DNS Made Easy 2048 bit DKIM support
+:hp-tags: DNS, DKIM
+
+If you have ever attempted to create your own DKIM key for your own mail server you know it can be a daunting task. Every flavor SMTP DKIM configuration is a bit different.  Though once you've gotten your SMTP server configured with your private and public key, the easiest part of the entire process should be to make the necessary changes at your DNS provider,right? Unfortunately, not all providers support automatically accepting 2048 bit DKIM keys and you are ready to bang your head against the wall.  Why dont they support a 2048 bit key or larger? Well, their system wont automatically handle keys larger than 255 contiguous characters because they haven't updated their interfaces to handle RFC 4408.  More on this in a bit.
+
+If you are using [https://cp.dnsmadeeasy.com/u/117059](DNS Made Easy) like I was, you probably ran across the error when trying to enter your DKIM key.
+
+**"Contiguous strings may not be longer than 255 characters"**
+
+
+Thankfully, [DNS RFC 4408](https://tools.ietf.org/html/rfc4408#section-3.1.3) has a way for [handling](https://kb.isc.org/article/AA-00356/0/Can-I-have-a-TXT-or-SPF-record-longer-than-255-characters.html) this. While there is no knowledge base entry on the DNSME support site, they do in fact support 2048 bit keys, but you'll have to open a support ticket to get the answer.
+
+I've generated a sample 2048 bit key using [Port25 DKIM Wizard](https://www.port25.com/dkim-wizard/) for my example.
+
+###### Example
+**Generated 2048 bit key**
+```
+v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA38K27694dPpB72IgyYh/d6bOaSTe4vXlaPOFjAn4Mef8VGA8Cnvb2VWx0wV2HvqAR62iHjBVZc6otsYI35MIwOh6cunL5ypwIQ0+ALUd5+qUz6ww2vAPkt0iPudIwg41Zmv+tR74zZGNHtV+691i6jCYKEJ6iJlfJqwM+HigDy5T62Qp5FaVSDom/y4eLinme0Vdg1AZQ4Vg5/fK1PtVNTrqwFqzGy6IdmVjImfcNtAZ/CXSzKLUmsPHxo/ST88XFK9jUUW8vYcT9Yw+Ma0mce9mCcxITpCG5jrX07K+Y+kNJPesZ9v/prwQ+4JVtoT2FrJE6nFqHGLGpTzUVGKkTQIDAQAB
+```
+
+**Modified 2048 bit key for DNS Made Easy**
+```
+"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA38K27694dPpB72IgyYh/d6bOaSTe4vXlaPOFjAn4Mef8VGA8Cnvb2VWx0wV2HvqAR62iHjBVZc6otsYI35MIwOh6cunL5ypwIQ0+ALUd5+qUz6ww2vAPkt0iPudIwg41Zmv+tR74zZGNHtV+691i6jCYKEJ6iJlfJqwM+HigDy5T62Qp5FaVSDom/y4eLinme"
+"0Vdg1AZQ4Vg5/fK1PtVNTrqwFqzGy6IdmVjImfcNtAZ/CXSzKLUmsPHxo/ST88XFK9jUUW8vYcT9Yw+Ma0mce9mCcxITpCG5jrX07K+Y+kNJPesZ9v/prwQ+4JVtoT2FrJE6nFqHGLGpTzUVGKkTQIDAQAB"
+```
+What I've done here is I've broken out the first 255 characters of the DKIM key and wrapped it in quotes.  The remaining characters are also wrapped in quotes.
+
+without the DKIM it would look something like this.
+
+```
+"v=DKIM1; k=rsa................" "....................."
+```
+
+To help you count characters, don't count by hand, use this [tool](http://charactercounttool.com/).
+
+Many DNS providers out there are smart enough to automatically handle long DKIM keys.  I've tested 2048 bit with the following providers who automatically handle long keys with ease. 
+
+**In no particular order**
+
+ - [Hurricane DNS (Free)](https://dns.he.net)
+ - [EasyDNS (Paid)](https://easydns.com)
+ - [Cloudflare (Free/Paid](https://cloudflare.com)
+ 
+*Some links above may be affiliate links to help cover my server costs and beer.*
+
+Original post @ [blog.jarbro.com](http://jarb.ro/2cj60U0) 
