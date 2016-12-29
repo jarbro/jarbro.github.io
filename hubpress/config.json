@@ -6,7 +6,8 @@
     "cname": "blog.jarbro.com"
   },
   "site": {
-    "title": "blog.jarbro.com"
+    "title": "blog.jarbro.com",
+    "description": "made with ♥ in washington heights"
   },
   "socialnetwork": {
     "twitter": "jarbro",
