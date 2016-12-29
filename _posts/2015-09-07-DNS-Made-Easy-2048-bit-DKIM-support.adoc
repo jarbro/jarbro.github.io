@@ -1,5 +1,6 @@
 # DNS Made Easy 2048 bit DKIM support
 :hp-tags: DNS, DKIM
+:published_at: 2015-09-07
 
 If you have ever attempted to create your own DKIM key for your own mail server you know it can be a daunting task. Every flavor SMTP DKIM configuration is a bit different.  Though once you've gotten your SMTP server configured with your private and public key, the easiest part of the entire process should be to make the necessary changes at your DNS provider,right? Unfortunately, not all providers support automatically accepting 2048 bit DKIM keys and you are ready to bang your head against the wall.  Why dont they support a 2048 bit key or larger? Well, their system wont automatically handle keys larger than 255 contiguous characters because they haven't updated their interfaces to handle RFC 4408.  More on this in a bit.
 
