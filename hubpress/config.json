@@ -2,9 +2,14 @@
   "meta": {
     "username": "jarbro",
     "repositoryName": "jarbro.github.io",
-    "branch": "master"
+    "branch": "master",
+    "cname": "blog.jarbro.com"
   },
+  "site": {
+    "title": "blog.jarbro.com"
+  },
+  "socialnetwork": {},
   "theme": {
-    "name": "Casper"
+    "name": "casper"
   }
 }
