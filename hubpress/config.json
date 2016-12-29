@@ -8,7 +8,13 @@
   "site": {
     "title": "blog.jarbro.com"
   },
-  "socialnetwork": {},
+  "socialnetwork": {
+    "twitter": "jarbro",
+    "linkedin": "jsbrodsky",
+    "facebook": "jarbro",
+    "instagram": "jarbro",
+    "github": "jarbro"
+  },
   "theme": {
     "name": "casper"
   }
