@@ -1,4 +1,6 @@
 # FileMaker Openfire API Integration
+:published_at: 2016-08-17
+:hp-tags: filemaker, xmpp, openfire
 
 We've been using Openfire XMPP at my company since ~2004 and wanted to be able to push out some alerts to our users from FileMaker using our existing chat client. In this example we are just going to send a system broadcast message to all users. For other uses you can find the Full REST API documentation [here](https://www.igniterealtime.org/projects/openfire/plugins/restapi/readme.html).
 
