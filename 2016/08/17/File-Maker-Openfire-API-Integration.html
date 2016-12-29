@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>FileMaker Openfire API Integration</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="https://jarbro.github.io/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="//jarbro.github.io/themes/casper/assets/css/screen.css?v=1482982225949" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+
+    <link rel="canonical" href="https://jarbro.github.io/2016/08/17/File-Maker-Openfire-API-Integration.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="FileMaker Openfire API Integration" />
+    <meta property="og:description" content="We&amp;#8217;ve been using Openfire XMPP at my company since ~2004 and wanted to be able to push out some alerts to our users from FileMaker using our existing chat client. In this example we are just going to send a system broadcast message to all users. For other" />
+    <meta property="og:url" content="https://jarbro.github.io/2016/08/17/File-Maker-Openfire-API-Integration.html" />
+    <meta property="article:tag" content="filemaker" />
+    <meta property="article:tag" content=" xmpp" />
+    <meta property="article:tag" content=" openfire" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="FileMaker Openfire API Integration" />
+    <meta name="twitter:description" content="We&amp;#8217;ve been using Openfire XMPP at my company since ~2004 and wanted to be able to push out some alerts to our users from FileMaker using our existing chat client. In this example we are just going to send a system broadcast message to all users. For other" />
+    <meta name="twitter:url" content="https://jarbro.github.io/2016/08/17/File-Maker-Openfire-API-Integration.html" />
+    
+    <script type="application/ld+json">
+null
+    </script>
+
+    <meta name="generator" content="HubPress" />
+    <link rel="alternate" type="application/rss+xml" title="" href="https://jarbro.github.io/rss/" />
+</head>
+<body class="post-template tag-filemaker tag-xmpp tag-openfire nav-closed">
+
+    
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-filemaker tag-xmpp tag-openfire">
+
+        <header class="post-header">
+            <h1 class="post-title">FileMaker Openfire API Integration</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2016-08-17">17 August 2016</time>  on <a href="https://jarbro.github.io/tag/filemaker/">filemaker</a>, <a href="https://jarbro.github.io/tag/xmpp/"> xmpp</a>, <a href="https://jarbro.github.io/tag/openfire/"> openfire</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>We&#8217;ve been using Openfire XMPP at my company since ~2004 and wanted to be able to push out some alerts to our users from FileMaker using our existing chat client. In this example we are just going to send a system broadcast message to all users. For other uses you can find the Full REST API documentation [here](<a href="https://www.igniterealtime.org/projects/openfire/plugins/restapi/readme.html" class="bare">https://www.igniterealtime.org/projects/openfire/plugins/restapi/readme.html</a>).</p>
+</div>
+<div class="paragraph">
+<p>What you will need.
+  - Latest Version of Openfire XMPP server [Link](<a href="https://igniterealtime.org/downloads/index.jsp#openfire" class="bare">https://igniterealtime.org/downloads/index.jsp#openfire</a>)
+  - FileMaker Pro or Server
+  - Base Elements Plugin [download](<a href="http://www.goya.com.au/baseelements/plugin" class="bare">http://www.goya.com.au/baseelements/plugin</a>)
+  - Time, Love &amp; Tenderness</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_installation">Installation</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the Base Elements plugin into FileMaker. [More info.](<a href="http://help.filemaker.com/app/answers/detail/a_id/10097/~/installing-and-updating-plug-ins-in-filemaker-pro" class="bare">http://help.filemaker.com/app/answers/detail/a_id/10097/~/installing-and-updating-plug-ins-in-filemaker-pro</a>)</p>
+</li>
+<li>
+<p>Login into the Openfire admin console and go to the plugins tab.  Click 'available plugins' and install the REST API plugin.</p>
+</li>
+<li>
+<p>Go to Server &gt; Server Settings and click REST API on the left hand column.</p>
+</li>
+<li>
+<p>Make sure you&#8217;ve enabled the plugin so it can receive API requests.</p>
+</li>
+<li>
+<p>Enable 'Select Secret key auth' option</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We are going to test with curl first to make sure you can connect to the REST API. Fire up your favorite terminal and enter the following.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sh" data-lang="sh">$ curl -X POST -H "Authorization: &lt;YOUR SECRET KEY AUTH&gt;" -H "Content-Type: application/xml" -d '&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;message&gt;&lt;body&gt;Hello Neighbor!&lt;/body&gt;&lt;/message&gt;' "http://yourserver.org:9090/plugins/restapi/v1/messages/users"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If everything was configured correctly, you should get a broadcast message with "Hello Neighbor!" as the message.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_filemaker_integration">FileMaker Integration</h3>
+<div class="paragraph">
+<p>If your test was successful, lets start crafting our FileMaker script.  Due to the API requiring we send some custom headers, we cannot use the built-in Insert URL function, but have to rely on a plugin instead.  In this example we will be using the excellent and free [Base Elements Plugin](<a href="http://www.goya.com.au/baseelements/plugin" class="bare">http://www.goya.com.au/baseelements/plugin</a>).</p>
+</div>
+<div class="paragraph">
+<p>Create a FM script called Openfire API</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Set Variable [ $url; Value:"http://yourserver.org:9090/plugins/restapi/v1/messages/users" ]
+Set Variable [ $header; Value:BE_HTTP_Set_Custom_Header ( "Authorization"; "&lt;YOUR SECRET KEY AUTH&gt;") ]
+Set Variable [ $header; Value:BE_HTTP_Set_Custom_Header ( "Content-Type"; "application/xml") ]
+Set Variable [ $body; Value:"&lt;?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?&gt;&lt;message&gt;&lt;body&gt;Hello Neightbor!&lt;/body&gt;&lt;/message&gt;" ]
+Set Variable [ $post; Value:BE_HTTP_POST ( $url; $body) ]
+# Show Trace for Debugging - This is optional although it will help debug any potential issues.
+Show Custom Dialog [ Title: "Trace"; Message: BE_Curl_Trace; Default Button: “OK”, Commit: “Yes”; Button 2: “Cancel”, Commit: “No” ]
+Exit Script[]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run the script and you should get the same result as when you executed the HTTP POST using curl.  Magic!</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_thanks">Thanks</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>An invaluable tool while testing was [Postman](<a href="https://www.getpostman.com/" class="bare">https://www.getpostman.com/</a>).  If you don&#8217;t know about it, you should download and install ASAP.  It&#8217;s a free plugin for Chrome.</p>
+</li>
+<li>
+<p>The guys over at [Ignite Realtime](<a href="http://www.igniterealtime.org" class="bare">http://www.igniterealtime.org</a>)</p>
+</li>
+<li>
+<p>The FileMaker community, especially the guys over at FMSLUG.</p>
+</li>
+<li>
+<p>BaseElements for the free plugin that makes this work.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="https://jarbro.github.io/author/jarbro/" style="background-image: url(https://avatars.githubusercontent.com/u/3271673?v&#x3D;3)"><span class="hidden">Jared Brodsky's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="https://jarbro.github.io/author/jarbro/">Jared Brodsky</a></h4>
+
+                    <p>nothing to see here, move along.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">I ❤︎ NYC</span>
+                    <span class="author-link icon-link"><a href="blog.jarbro.com">blog.jarbro.com</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=FileMaker%20Openfire%20API%20Integration&amp;url=https://jarbro.github.io/2016/08/17/File-Maker-Openfire-API-Integration.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://jarbro.github.io/2016/08/17/File-Maker-Openfire-API-Integration.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://jarbro.github.io/2016/08/17/File-Maker-Openfire-API-Integration.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://jarbro.github.io"></a> &copy; 2016</section>
+            <section class="poweredby">Proudly published with <a href="http://hubpress.io">HubPress</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();
+      </script>
+
+    <script type="text/javascript" src="//jarbro.github.io/themes/casper/assets/js/jquery.fitvids.js?v=1482982225949"></script>
+    <script type="text/javascript" src="//jarbro.github.io/themes/casper/assets/js/index.js?v=1482982225949"></script>
+
+</body>
+</html>
