@@ -32,16 +32,16 @@ without the DKIM it would look something like this.
 "v=DKIM1; k=rsa................" "....................."
 ```
 
-To help you count characters, don't count by hand, use this [tool](http://charactercounttool.com/).
+To help you count characters, don't count by hand, use this link:http://charactercounttool.com/[tool].
 
 Many DNS providers out there are smart enough to automatically handle long DKIM keys.  I've tested 2048 bit with the following providers who automatically handle long keys with ease. 
 
 **In no particular order**
 
- - link:https://dns.he.net[Hurricane DNS (Free)](
+ - link:https://dns.he.net[Hurricane DNS (Free)]
  - link:https://easydns.com[EasyDNS (Paid)]
- - link:https://cloudflare.com[Cloudflare (Free/Paid](
+ - link:https://cloudflare.com[Cloudflare (Free/Paid]
  
 *Some links above may be affiliate links to help cover my server costs and beer.*
 
-Original post @ [blog.jarbro.com](http://jarb.ro/2cj60U0) 
+Original post @ link:http://jarb.ro/2cj60U0[blog.jarbro.com]
