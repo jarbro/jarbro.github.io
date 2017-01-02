@@ -2,17 +2,18 @@
 :published_at: 2016-08-17
 :hp-tags: filemaker, xmpp, openfire
 
-We've been using Openfire XMPP at my company since ~2004 and wanted to be able to push out some alerts to our users from FileMaker using our existing chat client. In this example we are just going to send a system broadcast message to all users. For other uses you can find the Full REST API documentation [here](https://www.igniterealtime.org/projects/openfire/plugins/restapi/readme.html).
+We've been using Openfire XMPP at my company since ~2004 and wanted to be able to push out some alerts to our users from FileMaker using our existing chat client. In this example we are just going to send a system broadcast message to all users. For other uses you can find the Full REST API documentation link:https://www.igniterealtime.org/projects/openfire/plugins/restapi/readme.html[here]
 
 What you will need.
-  - Latest Version of Openfire XMPP server [Link](https://igniterealtime.org/downloads/index.jsp#openfire)
-  - FileMaker Pro or Server
-  - Base Elements Plugin [download](http://www.goya.com.au/baseelements/plugin)
-  - Time, Love & Tenderness
+
+ - Latest Version of Openfire XMPP server link:https://igniterealtime.org/downloads/index.jsp#openfire[Link]
+ - FileMaker Pro or Server
+ - Base Elements Plugin link:http://www.goya.com.au/baseelements/plugin[Download]
+ - Time, Love & Tenderness
 
 ### Installation
 
- 1. Install the Base Elements plugin into FileMaker. [More info.](http://help.filemaker.com/app/answers/detail/a_id/10097/~/installing-and-updating-plug-ins-in-filemaker-pro)
+ 1. Install the Base Elements plugin into FileMaker. link:http://help.filemaker.com/app/answers/detail/a_id/10097/~/installing-and-updating-plug-ins-in-filemaker-pro/[More Info.]
  2. Login into the Openfire admin console and go to the plugins tab.  Click 'available plugins' and install the REST API plugin.
  3. Go to Server > Server Settings and click REST API on the left hand column.
  4. Make sure you've enabled the plugin so it can receive API requests.
@@ -28,7 +29,7 @@ If everything was configured correctly, you should get a broadcast message with 
 
 ### FileMaker Integration
 
-If your test was successful, lets start crafting our FileMaker script.  Due to the API requiring we send some custom headers, we cannot use the built-in Insert URL function, but have to rely on a plugin instead.  In this example we will be using the excellent and free [Base Elements Plugin](http://www.goya.com.au/baseelements/plugin).
+If your test was successful, lets start crafting our FileMaker script.  Due to the API requiring we send some custom headers, we cannot use the built-in Insert URL function, but have to rely on a plugin instead.  In this example we will be using the excellent and free link:http://www.goya.com.au/baseelements/plugin/[Base Elements Plugin].
 
 Create a FM script called Openfire API 
 
@@ -44,8 +45,8 @@ Create a FM script called Openfire API
 Run the script and you should get the same result as when you executed the HTTP POST using curl.  Magic!
 
 ## Thanks  
- - An invaluable tool while testing was [Postman](https://www.getpostman.com/).  If you don't know about it, you should download and install ASAP.  It's a free plugin for Chrome.
- - The guys over at [Ignite Realtime](http://www.igniterealtime.org)
+ - An invaluable tool while testing was link:https://www.getpostman.com/[Postman].  If you don't know about it, you should download and install ASAP.  It's a free plugin for Chrome.
+ - The guys over at link:http://www.igniterealtime.org[Ignite Realtime]
  - The FileMaker community, especially the guys over at FMSLUG.
  - BaseElements for the free plugin that makes this work.
 
