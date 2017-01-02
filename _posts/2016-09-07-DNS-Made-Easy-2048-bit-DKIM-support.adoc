@@ -4,14 +4,14 @@
 
 If you have ever attempted to create your own DKIM key for your own mail server you know it can be a daunting task. Every flavor SMTP DKIM configuration is a bit different.  Though once you've gotten your SMTP server configured with your private and public key, the easiest part of the entire process should be to make the necessary changes at your DNS provider,right? Unfortunately, not all providers support automatically accepting 2048 bit DKIM keys and you are ready to bang your head against the wall.  Why dont they support a 2048 bit key or larger? Well, their system wont automatically handle keys larger than 255 contiguous characters because they haven't updated their interfaces to handle RFC 4408.  More on this in a bit.
 
-If you are using [https://cp.dnsmadeeasy.com/u/117059](DNS Made Easy) like I was, you probably ran across the error when trying to enter your DKIM key.
+If you are using link:https://cp.dnsmadeeasy.com/u/117059[DNS Made Easy] like I was, you probably ran across the error when trying to enter your DKIM key.
 
 **"Contiguous strings may not be longer than 255 characters"**
 
 
-Thankfully, [DNS RFC 4408](https://tools.ietf.org/html/rfc4408#section-3.1.3) has a way for [handling](https://kb.isc.org/article/AA-00356/0/Can-I-have-a-TXT-or-SPF-record-longer-than-255-characters.html) this. While there is no knowledge base entry on the DNSME support site, they do in fact support 2048 bit keys, but you'll have to open a support ticket to get the answer.
+Thankfully, link:https://tools.ietf.org/html/rfc4408#section-3.1.3[DNS RFC 4408] has a way for link:https://kb.isc.org/article/AA-00356/0/Can-I-have-a-TXT-or-SPF-record-longer-than-255-characters.html[handling] this. While there is no knowledge base entry on the DNSME support site, they do in fact support 2048 bit keys, but you'll have to open a support ticket to get the answer.
 
-I've generated a sample 2048 bit key using [Port25 DKIM Wizard](https://www.port25.com/dkim-wizard/) for my example.
+I've generated a sample 2048 bit key using link:https://www.port25.com/dkim-wizard/[Port25 DKIM Wizard] for my example.
 
 ###### Example
 **Generated 2048 bit key**
@@ -38,9 +38,9 @@ Many DNS providers out there are smart enough to automatically handle long DKIM 
 
 **In no particular order**
 
- - [Hurricane DNS (Free)](https://dns.he.net)
- - [EasyDNS (Paid)](https://easydns.com)
- - [Cloudflare (Free/Paid](https://cloudflare.com)
+ - link:https://dns.he.net[Hurricane DNS (Free)](
+ - link:https://easydns.com[EasyDNS (Paid)]
+ - link:https://cloudflare.com[Cloudflare (Free/Paid](
  
 *Some links above may be affiliate links to help cover my server costs and beer.*
 
