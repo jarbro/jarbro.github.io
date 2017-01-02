@@ -40,7 +40,7 @@ Many DNS providers out there are smart enough to automatically handle long DKIM 
 
  - link:https://dns.he.net[Hurricane DNS (Free)]
  - link:https://easydns.com[EasyDNS (Paid)]
- - link:https://cloudflare.com[Cloudflare (Free/Paid]
+ - link:https://cloudflare.com[Cloudflare (Free/Paid)]
  
 *Some links above may be affiliate links to help cover my server costs and beer.*
 
