@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[blog.jarbro]]></title><description><![CDATA[made with ♥ in washington heights]]></description><link>http://blog.jarbro.com</link><generator>RSS for Node</generator><lastBuildDate>Mon, 02 Jan 2017 23:37:55 GMT</lastBuildDate><atom:link href="http://blog.jarbro.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[DNS Made Easy 2048 bit DKIM support]]></title><description><![CDATA[<div id="preamble">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[blog.jarbro]]></title><description><![CDATA[made with ♥ in washington heights]]></description><link>http://blog.jarbro.com</link><generator>RSS for Node</generator><lastBuildDate>Mon, 02 Jan 2017 23:39:00 GMT</lastBuildDate><atom:link href="http://blog.jarbro.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[DNS Made Easy 2048 bit DKIM support]]></title><description><![CDATA[<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>If you have ever attempted to create your own DKIM key for your own mail server you know it can be a daunting task. Every flavor SMTP DKIM configuration is a bit different.  Though once you&#8217;ve gotten your SMTP server configured with your private and public key, the easiest part of the entire process should be to make the necessary changes at your DNS provider,right? Unfortunately, not all providers support automatically accepting 2048 bit DKIM keys and you are ready to bang your head against the wall.  Why dont they support a 2048 bit key or larger? Well, their system wont automatically handle keys larger than 255 contiguous characters because they haven&#8217;t updated their interfaces to handle RFC 4408.  More on this in a bit.</p>
@@ -48,7 +48,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>To help you count characters, don&#8217;t count by hand, use this [tool](<a href="http://charactercounttool.com/" class="bare">http://charactercounttool.com/</a>).</p>
+<p>To help you count characters, don&#8217;t count by hand, use this <a href="http://charactercounttool.com/">tool</a>.</p>
 </div>
 <div class="paragraph">
 <p>Many DNS providers out there are smart enough to automatically handle long DKIM keys.  I&#8217;ve tested 2048 bit with the following providers who automatically handle long keys with ease.</p>
@@ -59,13 +59,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://dns.he.net">Hurricane DNS (Free)</a>(</p>
+<p><a href="https://dns.he.net">Hurricane DNS (Free)</a></p>
 </li>
 <li>
 <p><a href="https://easydns.com">EasyDNS (Paid)</a></p>
 </li>
 <li>
-<p><a href="https://cloudflare.com">Cloudflare (Free/Paid</a>(</p>
+<p><a href="https://cloudflare.com">Cloudflare (Free/Paid</a></p>
 </li>
 </ul>
 </div>
@@ -73,7 +73,7 @@
 <p><strong>Some links above may be affiliate links to help cover my server costs and beer.</strong></p>
 </div>
 <div class="paragraph">
-<p>Original post @ [blog.jarbro.com](<a href="http://jarb.ro/2cj60U0" class="bare">http://jarb.ro/2cj60U0</a>)</p>
+<p>Original post @ <a href="http://jarb.ro/2cj60U0">blog.jarbro.com</a></p>
 </div>
 </div>]]></description><link>http://blog.jarbro.com/2016/09/07/DNS-Made-Easy-2048-bit-DKIM-support.html</link><guid isPermaLink="true">http://blog.jarbro.com/2016/09/07/DNS-Made-Easy-2048-bit-DKIM-support.html</guid><category><![CDATA[DNS]]></category><category><![CDATA[ DKIM]]></category><dc:creator><![CDATA[Jared Brodsky]]></dc:creator><pubDate>Wed, 07 Sep 2016 00:00:00 GMT</pubDate></item><item><title><![CDATA[FileMaker Openfire API Integration]]></title><description><![CDATA[<div id="preamble">
 <div class="sectionbody">
