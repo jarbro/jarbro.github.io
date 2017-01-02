@@ -12,7 +12,7 @@
 
     <link rel="shortcut icon" href="http://blog.jarbro.com/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="//blog.jarbro.com/themes/casper/assets/css/screen.css?v=1483399481239" />
+    <link rel="stylesheet" type="text/css" href="//blog.jarbro.com/themes/casper/assets/css/screen.css?v=1483401552390" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
 
     <link rel="canonical" href="http://blog.jarbro.com/2016/08/17/File-Maker-Openfire-API-Integration.html" />
@@ -68,14 +68,26 @@ null
             <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>We&#8217;ve been using Openfire XMPP at my company since ~2004 and wanted to be able to push out some alerts to our users from FileMaker using our existing chat client. In this example we are just going to send a system broadcast message to all users. For other uses you can find the Full REST API documentation [here](<a href="https://www.igniterealtime.org/projects/openfire/plugins/restapi/readme.html" class="bare">https://www.igniterealtime.org/projects/openfire/plugins/restapi/readme.html</a>).</p>
+<p>We&#8217;ve been using Openfire XMPP at my company since ~2004 and wanted to be able to push out some alerts to our users from FileMaker using our existing chat client. In this example we are just going to send a system broadcast message to all users. For other uses you can find the Full REST API documentation <a href="https://www.igniterealtime.org/projects/openfire/plugins/restapi/readme.html">here</a></p>
 </div>
 <div class="paragraph">
-<p>What you will need.
-  - Latest Version of Openfire XMPP server [Link](<a href="https://igniterealtime.org/downloads/index.jsp#openfire" class="bare">https://igniterealtime.org/downloads/index.jsp#openfire</a>)
-  - FileMaker Pro or Server
-  - Base Elements Plugin [download](<a href="http://www.goya.com.au/baseelements/plugin" class="bare">http://www.goya.com.au/baseelements/plugin</a>)
-  - Time, Love &amp; Tenderness</p>
+<p>What you will need.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Latest Version of Openfire XMPP server <a href="https://igniterealtime.org/downloads/index.jsp#openfire">Link</a></p>
+</li>
+<li>
+<p>FileMaker Pro or Server</p>
+</li>
+<li>
+<p>Base Elements Plugin <a href="http://www.goya.com.au/baseelements/plugin">Download</a></p>
+</li>
+<li>
+<p>Time, Love &amp; Tenderness</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -84,7 +96,7 @@ null
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Install the Base Elements plugin into FileMaker. [More info.](<a href="http://help.filemaker.com/app/answers/detail/a_id/10097/~/installing-and-updating-plug-ins-in-filemaker-pro" class="bare">http://help.filemaker.com/app/answers/detail/a_id/10097/~/installing-and-updating-plug-ins-in-filemaker-pro</a>)</p>
+<p>Install the Base Elements plugin into FileMaker. <a href="http://help.filemaker.com/app/answers/detail/a_id/10097/~/installing-and-updating-plug-ins-in-filemaker-pro/">More Info.</a></p>
 </li>
 <li>
 <p>Login into the Openfire admin console and go to the plugins tab.  Click 'available plugins' and install the REST API plugin.</p>
@@ -115,7 +127,7 @@ null
 <div class="sect2">
 <h3 id="_filemaker_integration">FileMaker Integration</h3>
 <div class="paragraph">
-<p>If your test was successful, lets start crafting our FileMaker script.  Due to the API requiring we send some custom headers, we cannot use the built-in Insert URL function, but have to rely on a plugin instead.  In this example we will be using the excellent and free [Base Elements Plugin](<a href="http://www.goya.com.au/baseelements/plugin" class="bare">http://www.goya.com.au/baseelements/plugin</a>).</p>
+<p>If your test was successful, lets start crafting our FileMaker script.  Due to the API requiring we send some custom headers, we cannot use the built-in Insert URL function, but have to rely on a plugin instead.  In this example we will be using the excellent and free <a href="http://www.goya.com.au/baseelements/plugin/">Base Elements Plugin</a>.</p>
 </div>
 <div class="paragraph">
 <p>Create a FM script called Openfire API</p>
@@ -142,10 +154,10 @@ Exit Script[]</pre>
 <div class="ulist">
 <ul>
 <li>
-<p>An invaluable tool while testing was [Postman](<a href="https://www.getpostman.com/" class="bare">https://www.getpostman.com/</a>).  If you don&#8217;t know about it, you should download and install ASAP.  It&#8217;s a free plugin for Chrome.</p>
+<p>An invaluable tool while testing was <a href="https://www.getpostman.com/">Postman</a>.  If you don&#8217;t know about it, you should download and install ASAP.  It&#8217;s a free plugin for Chrome.</p>
 </li>
 <li>
-<p>The guys over at [Ignite Realtime](<a href="http://www.igniterealtime.org" class="bare">http://www.igniterealtime.org</a>)</p>
+<p>The guys over at <a href="http://www.igniterealtime.org">Ignite Realtime</a></p>
 </li>
 <li>
 <p>The FileMaker community, especially the guys over at FMSLUG.</p>
@@ -179,15 +191,15 @@ Exit Script[]</pre>
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=FileMaker%20Openfire%20API%20Integration&amp;url=http://blog.jarbro.com/"
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=FileMaker%20Openfire%20API%20Integration&amp;url=http://blog.jarbro.com/2016/08/17/File-Maker-Openfire-API-Integration.html"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.jarbro.com/"
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.jarbro.com/2016/08/17/File-Maker-Openfire-API-Integration.html"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://blog.jarbro.com/"
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://blog.jarbro.com/2016/08/17/File-Maker-Openfire-API-Integration.html"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                     <span class="hidden">Google+</span>
                 </a>
@@ -242,8 +254,8 @@ Exit Script[]</pre>
         hljs.initHighlightingOnLoad();
       </script>
 
-    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/jquery.fitvids.js?v=1483399481239"></script>
-    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/index.js?v=1483399481239"></script>
+    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/jquery.fitvids.js?v=1483401552390"></script>
+    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/index.js?v=1483401552390"></script>
 
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
