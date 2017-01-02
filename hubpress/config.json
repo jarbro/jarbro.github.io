@@ -8,7 +8,8 @@
   "site": {
     "title": "blog.jarbro",
     "description": "made with ♥ in washington heights",
-    "googleAnalytics": "UA-71227-21"
+    "googleAnalytics": "UA-71227-21",
+    "disqus": "jarbro"
   },
   "socialnetwork": {
     "twitter": "jarbro",
