@@ -8,6 +8,7 @@
   "site": {
     "title": "blog.jarbro",
     "description": "made with ♥ in washington heights",
+    "cover": "http://i.imgur.com/mifLg3B.jpg",
     "googleAnalytics": "UA-71227-21",
     "disqus": "jarbro"
   },
