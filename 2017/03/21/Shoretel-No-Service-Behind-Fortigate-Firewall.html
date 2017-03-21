@@ -12,7 +12,7 @@
 
     <link rel="shortcut icon" href="http://blog.jarbro.com/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="//blog.jarbro.com/themes/casper/assets/css/screen.css?v=1490129344635" />
+    <link rel="stylesheet" type="text/css" href="//blog.jarbro.com/themes/casper/assets/css/screen.css?v=1490129457788" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
 
     <link rel="canonical" href="http://blog.jarbro.com/2017/03/21/Shoretel-No-Service-Behind-Fortigate-Firewall.html" />
@@ -97,8 +97,8 @@ ha_id=0 policy_dir=0 tunnel=/ vlan_cos=0/255
 state=log may_dirty none
 statistic(bytes/packets/allow_err): org=768551/7929/1 reply=0/0/0 tuples=3
 tx speed(Bps/kbps): 13/0 rx speed(Bps/kbps): 0/0
-orgin-&gt;sink: org pre-&gt;post, reply pre-&gt;post dev=37-&gt;7/7-&gt;37 gwy=x.x.WAN.GW/0.0.0.0  <i class="conum" data-value="1"></i><b>(1)</b>
-hook=post dir=org act=snat 192.168.0.4:2727-192.168.1.100:2427(x.x.x.WAN:63143) <i class="conum" data-value="2"></i><b>(2)</b>
+orgin-&gt;sink: org pre-&gt;post, reply pre-&gt;post dev=37-&gt;7/7-&gt;37 gwy=x.x.WAN.GW/0.0.0.0  &lt;*&gt;
+hook=post dir=org act=snat 192.168.0.4:2727-192.168.1.100:2427(x.x.x.WAN:63143) &lt;*&gt;
 hook=pre dir=reply act=dnat 192.168.1.100:2427-&gt;.x.x.WAN:63143(192.168.0.4:2727)
 hook=post dir=reply act=noop 192.168.1.100:2427-&gt;192.168.0.4:2727(0.0.0.0:0)
 src_mac=00:10:49:16:xx:xx
@@ -109,7 +109,7 @@ total session 1</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>By looking at the the above, you can see that traffic from 192.168.0.4 &#8594; 192.168.1.100 is trying to be routed over the WAN link. This is no good.</p>
+<p>By looking at the the above at <strong>(1)</strong> and <strong>(2)</strong>, you can see that traffic from 192.168.0.4 &#8594; 192.168.1.100 is trying to be routed over the WAN link. This is no good.</p>
 </div>
 </div>
 </div>
@@ -232,8 +232,8 @@ end</pre>
         hljs.initHighlightingOnLoad();
       </script>
 
-    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/jquery.fitvids.js?v=1490129344635"></script>
-    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/index.js?v=1490129344635"></script>
+    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/jquery.fitvids.js?v=1490129457788"></script>
+    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/index.js?v=1490129457788"></script>
 
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
