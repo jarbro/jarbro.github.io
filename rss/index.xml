@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[blog.jarbro]]></title><description><![CDATA[made with ♥ in washington heights]]></description><link>http://blog.jarbro.com</link><image><url>http://i.imgur.com/mifLg3B.jpg</url><title>blog.jarbro</title><link>http://blog.jarbro.com</link></image><generator>RSS for Node</generator><lastBuildDate>Tue, 21 Mar 2017 20:49:04 GMT</lastBuildDate><atom:link href="http://blog.jarbro.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Shoretel No Service Behind Fortigate Firewall]]></title><description><![CDATA[<div id="preamble">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[blog.jarbro]]></title><description><![CDATA[made with ♥ in washington heights]]></description><link>http://blog.jarbro.com</link><image><url>http://i.imgur.com/mifLg3B.jpg</url><title>blog.jarbro</title><link>http://blog.jarbro.com</link></image><generator>RSS for Node</generator><lastBuildDate>Tue, 21 Mar 2017 20:50:57 GMT</lastBuildDate><atom:link href="http://blog.jarbro.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Shoretel No Service Behind Fortigate Firewall]]></title><description><![CDATA[<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>Got a call this morning reporting there was an issue with our phones this morning in our satellite office. The dreaded NO SERVICE message on the phones. After doing all the normal diagnostics and checks and resetting phones to factory, they still did not want to cooperate.</p>
@@ -30,8 +30,8 @@ ha_id=0 policy_dir=0 tunnel=/ vlan_cos=0/255
 state=log may_dirty none
 statistic(bytes/packets/allow_err): org=768551/7929/1 reply=0/0/0 tuples=3
 tx speed(Bps/kbps): 13/0 rx speed(Bps/kbps): 0/0
-orgin-&gt;sink: org pre-&gt;post, reply pre-&gt;post dev=37-&gt;7/7-&gt;37 gwy=x.x.WAN.GW/0.0.0.0  <i class="conum" data-value="1"></i><b>(1)</b>
-hook=post dir=org act=snat 192.168.0.4:2727-192.168.1.100:2427(x.x.x.WAN:63143) <i class="conum" data-value="2"></i><b>(2)</b>
+orgin-&gt;sink: org pre-&gt;post, reply pre-&gt;post dev=37-&gt;7/7-&gt;37 gwy=x.x.WAN.GW/0.0.0.0  &lt;*&gt;
+hook=post dir=org act=snat 192.168.0.4:2727-192.168.1.100:2427(x.x.x.WAN:63143) &lt;*&gt;
 hook=pre dir=reply act=dnat 192.168.1.100:2427-&gt;.x.x.WAN:63143(192.168.0.4:2727)
 hook=post dir=reply act=noop 192.168.1.100:2427-&gt;192.168.0.4:2727(0.0.0.0:0)
 src_mac=00:10:49:16:xx:xx
@@ -42,7 +42,7 @@ total session 1</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>By looking at the the above, you can see that traffic from 192.168.0.4 &#8594; 192.168.1.100 is trying to be routed over the WAN link. This is no good.</p>
+<p>By looking at the the above at <strong>(1)</strong> and <strong>(2)</strong>, you can see that traffic from 192.168.0.4 &#8594; 192.168.1.100 is trying to be routed over the WAN link. This is no good.</p>
 </div>
 </div>
 </div>
