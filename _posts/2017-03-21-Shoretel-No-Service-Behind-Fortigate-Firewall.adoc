@@ -1,5 +1,6 @@
 # Shoretel No Service Behind Fortigate Firewall
 :hp-tags: IPSEC, FORTIGATE, SHORETEL
+:hp-image: http://i.imgur.com/CPpAXvl.png
 :published_at: 2017-03-21
 
 Got a call this morning reporting there was an issue with our phones this morning in our satellite office. The dreaded NO SERVICE message on the phones. After doing all the normal diagnostics and checks and resetting phones to factory, they still did not want to cooperate.
