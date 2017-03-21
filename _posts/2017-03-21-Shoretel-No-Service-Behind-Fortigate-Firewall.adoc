@@ -26,8 +26,8 @@ ha_id=0 policy_dir=0 tunnel=/ vlan_cos=0/255
 state=log may_dirty none
 statistic(bytes/packets/allow_err): org=768551/7929/1 reply=0/0/0 tuples=3
 tx speed(Bps/kbps): 13/0 rx speed(Bps/kbps): 0/0
-orgin->sink: org pre->post, reply pre->post dev=37->7/7->37 gwy=x.x.WAN.GW/0.0.0.0  <1>
-hook=post dir=org act=snat 192.168.0.4:2727-192.168.1.100:2427(x.x.x.WAN:63143) <2>
+orgin->sink: org pre->post, reply pre->post dev=37->7/7->37 gwy=x.x.WAN.GW/0.0.0.0  <*>
+hook=post dir=org act=snat 192.168.0.4:2727-192.168.1.100:2427(x.x.x.WAN:63143) <*>
 hook=pre dir=reply act=dnat 192.168.1.100:2427->.x.x.WAN:63143(192.168.0.4:2727)
 hook=post dir=reply act=noop 192.168.1.100:2427->192.168.0.4:2727(0.0.0.0:0)
 src_mac=00:10:49:16:xx:xx
@@ -37,7 +37,7 @@ dd_type=0 dd_mode=0
 total session 1
 ----
 
-By looking at the the above, you can see that traffic from 192.168.0.4 -> 192.168.1.100 is trying to be routed over the WAN link. This is no good.
+By looking at the the above at **(1)** and **(2)**, you can see that traffic from 192.168.0.4 -> 192.168.1.100 is trying to be routed over the WAN link. This is no good.
 
 ##### Remedy
 
