@@ -1,0 +1,66 @@
+# Shoretel No Service Behind Fortigate Firewall
+:hp-tags: IPSEC, FORTIGATE, SHORETEL
+:published_at: 2017-03-21
+
+Got a call this morning reporting there was an issue with our phones this morning in our satellite office. The dreaded NO SERVICE message on the phones. After doing all the normal diagnostics and checks and resetting phones to factory, they still did not want to cooperate.
+
+Digging deeper I ran a packet capture from my Shoretel Switch to get more info.  I did not see anything all that interesting with the exception of each phone sending duplicate MGCP Duplicate Requests. The requests never went past the link:https://dreamforccie.wordpress.com/2010/08/07/understanding-mgcp-packets-a-brief-overview-and-example-with-debugs/[AUEP] stage of the negotiation. Now I at least now where to look. For some reason the phones were never getting the expected 200 code preventing it from booting normally. 
+
+image::https://i.imgur.com/LO5Od0Z.png[]
+
+Requests from the remote site looked like they were going out ok, however when looking at the response from my home office I noticed something odd, it was trying to route packets destined for the IPSEC tunnel over my WAN interface! link:http://i3.kym-cdn.com/entries/icons/original/000/001/692/omgwtfbbq2.jpg[OMGWTFBBQ]!!
+
+To figure out if you are affected by the same issue, run the following commands on each end of your IPSEC tunnel.
+
+[source]
+----
+>diag sys session filter dst <your phone or switch IP>
+>diag sys session list
+
+session info: proto=17 proto_state=00 duration=59663 expire=109 timeout=0 flags=00000000 sockflag=00000000 sockport=0 av_idx=0 use=4
+origin-shaper=
+reply-shaper=
+per_ip_shaper=
+ha_id=0 policy_dir=0 tunnel=/ vlan_cos=0/255
+state=log may_dirty none
+statistic(bytes/packets/allow_err): org=768551/7929/1 reply=0/0/0 tuples=3
+tx speed(Bps/kbps): 13/0 rx speed(Bps/kbps): 0/0
+orgin->sink: org pre->post, reply pre->post dev=37->7/7->37 gwy=x.x.WAN.GW/0.0.0.0  <1>
+hook=post dir=org act=snat 192.168.0.4:2727-192.168.1.100:2427(x.x.x.WAN:63143) <2>
+hook=pre dir=reply act=dnat 192.168.1.100:2427->.x.x.WAN:63143(192.168.0.4:2727)
+hook=post dir=reply act=noop 192.168.1.100:2427->192.168.0.4:2727(0.0.0.0:0)
+src_mac=00:10:49:16:xx:xx
+misc=0 policy_id=38 auth_info=0 chk_client_info=0 vd=0
+serial=06476ede tos=ff/ff app_list=2004 app=16670 url_cat=0
+dd_type=0 dd_mode=0
+total session 1
+----
+
+By looking at the the above, you can see that traffic from 192.168.0.4 -> 192.168.1.100 is trying to be routed over the WAN link. This is no good.
+
+##### Remedy
+
+To fix this issue, you can do one of two things, you can add a link:http://kb.fortinet.com/kb/microsites/search.do?cmd=displayKC&docType=kc&externalId=13842&sliceId=1&docTypeID=DT_KCARTICLE_1_1&dialogID=59571995&stateId=0%200%2059573459[blackhole static route] to your config, or you can add a DENY policy to your firewall.
+
+In my instance I added a DENY policy which did the trick nicely. (Confirmed this was ok with Fortinet TAC)
+
+----
+config firewall policy
+edit <policyID>
+set name "Block_Shoretel_WAN"
+set srcintf "LAN"
+set dstintf "wan"
+set srcaddr "Shoretel_LAN"
+set dstaddr "remote_subnet_1"
+set schedule "always"
+set service "ALL"
+set logtraffic all
+next
+end
+----
+
+##### The Root of the Issue
+
+Why did this happen? In my instance, it was due to having two WAN links. At somepoint in the night, while all IT people should be sleeping (cough, cough), the IPSEC tunnel between offices got interrupted and failed over as expected to backup.  Unfortunately, when the the primary link came back online, the FGT was still trying to push traffic over the backup WAN link for some strange reason (Which it never should have tried to do anyway).  The newly created policy should prevent this from happening in the event the primary goes out for any period of time.
+
+Has this happened to you and you've come up with a better solution or remedy, please share in the comments below.
