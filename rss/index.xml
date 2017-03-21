@@ -1,4 +1,85 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[blog.jarbro]]></title><description><![CDATA[made with ♥ in washington heights]]></description><link>http://blog.jarbro.com</link><image><url>http://i.imgur.com/mifLg3B.jpg</url><title>blog.jarbro</title><link>http://blog.jarbro.com</link></image><generator>RSS for Node</generator><lastBuildDate>Wed, 04 Jan 2017 15:17:53 GMT</lastBuildDate><atom:link href="http://blog.jarbro.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[DNS Made Easy 2048 bit DKIM support]]></title><description><![CDATA[<div id="preamble">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[blog.jarbro]]></title><description><![CDATA[made with ♥ in washington heights]]></description><link>http://blog.jarbro.com</link><image><url>http://i.imgur.com/mifLg3B.jpg</url><title>blog.jarbro</title><link>http://blog.jarbro.com</link></image><generator>RSS for Node</generator><lastBuildDate>Tue, 21 Mar 2017 20:39:25 GMT</lastBuildDate><atom:link href="http://blog.jarbro.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Shoretel No Service Behind Fortigate Firewall]]></title><description><![CDATA[<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Got a call this morning reporting there was an issue with our phones this morning in our satellite office. The dreaded NO SERVICE message on the phones. After doing all the normal diagnostics and checks and resetting phones to factory, they still did not want to cooperate.</p>
+</div>
+<div class="paragraph">
+<p>Digging deeper I ran a packet capture from my Shoretel Switch to get more info.  I did not see anything all that interesting with the exception of each phone sending duplicate MGCP Duplicate Requests. The requests never went past the <a href="https://dreamforccie.wordpress.com/2010/08/07/understanding-mgcp-packets-a-brief-overview-and-example-with-debugs/">AUEP</a> stage of the negotiation. Now I at least now where to look. For some reason the phones were never getting the expected 200 code preventing it from booting normally.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="https://i.imgur.com/LO5Od0Z.png" alt="LO5Od0Z.png">
+</div>
+</div>
+<div class="paragraph">
+<p>Requests from the remote site looked like they were going out ok, however when looking at the response from my home office I noticed something odd, it was trying to route packets destined for the IPSEC tunnel over my WAN interface! <a href="http://i3.kym-cdn.com/entries/icons/original/000/001/692/omgwtfbbq2.jpg">OMGWTFBBQ</a>!!</p>
+</div>
+<div class="paragraph">
+<p>To figure out if you are affected by the same issue, run the following commands on each end of your IPSEC tunnel.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&gt;diag sys session filter dst &lt;your phone or switch IP&gt;
+&gt;diag sys session list
+
+session info: proto=17 proto_state=00 duration=59663 expire=109 timeout=0 flags=00000000 sockflag=00000000 sockport=0 av_idx=0 use=4
+origin-shaper=
+reply-shaper=
+per_ip_shaper=
+ha_id=0 policy_dir=0 tunnel=/ vlan_cos=0/255
+state=log may_dirty none
+statistic(bytes/packets/allow_err): org=768551/7929/1 reply=0/0/0 tuples=3
+tx speed(Bps/kbps): 13/0 rx speed(Bps/kbps): 0/0
+orgin-&gt;sink: org pre-&gt;post, reply pre-&gt;post dev=37-&gt;7/7-&gt;37 gwy=x.x.WAN.GW/0.0.0.0  <i class="conum" data-value="1"></i><b>(1)</b>
+hook=post dir=org act=snat 192.168.0.4:2727-192.168.1.100:2427(x.x.x.WAN:63143) <i class="conum" data-value="2"></i><b>(2)</b>
+hook=pre dir=reply act=dnat 192.168.1.100:2427-&gt;.x.x.WAN:63143(192.168.0.4:2727)
+hook=post dir=reply act=noop 192.168.1.100:2427-&gt;192.168.0.4:2727(0.0.0.0:0)
+src_mac=00:10:49:16:xx:xx
+misc=0 policy_id=38 auth_info=0 chk_client_info=0 vd=0
+serial=06476ede tos=ff/ff app_list=2004 app=16670 url_cat=0
+dd_type=0 dd_mode=0
+total session 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By looking at the the above, you can see that traffic from 192.168.0.4 &#8594; 192.168.1.100 is trying to be routed over the WAN link. This is no good.</p>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_remedy">Remedy</h5>
+<div class="paragraph">
+<p>To fix this issue, you can do one of two things, you can add a <a href="http://kb.fortinet.com/kb/microsites/search.do?cmd=displayKC&amp;docType=kc&amp;externalId=13842&amp;sliceId=1&amp;docTypeID=DT_KCARTICLE_1_1&amp;dialogID=59571995&amp;stateId=0%200%2059573459">blackhole static route</a> to your config, or you can add a DENY policy to your firewall.</p>
+</div>
+<div class="paragraph">
+<p>In my instance I added a DENY policy which did the trick nicely. (Confirmed this was ok with Fortinet TAC)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>config firewall policy
+edit &lt;policyID&gt;
+set name "Block_Shoretel_WAN"
+set srcintf "LAN"
+set dstintf "wan"
+set srcaddr "Shoretel_LAN"
+set dstaddr "remote_subnet_1"
+set schedule "always"
+set service "ALL"
+set logtraffic all
+next
+end</pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_the_root_of_the_issue">The Root of the Issue</h5>
+<div class="paragraph">
+<p>Why did this happen? In my instance, it was due to having two WAN links. At somepoint in the night, while all IT people should be sleeping (cough, cough), the IPSEC tunnel between offices got interrupted and failed over as expected to backup.  Unfortunately, when the the primary link came back online, the FGT was still trying to push traffic over the backup WAN link for some strange reason (Which it never should have tried to do anyway).  The newly created policy should prevent this from happening in the event the primary goes out for any period of time.</p>
+</div>
+<div class="paragraph">
+<p>Has this happened to you and you&#8217;ve come up with a better solution or remedy, please share in the comments below.</p>
+</div>
+</div>]]></description><link>http://blog.jarbro.com/2017/03/21/Shoretel-No-Service-Behind-Fortigate-Firewall.html</link><guid isPermaLink="true">http://blog.jarbro.com/2017/03/21/Shoretel-No-Service-Behind-Fortigate-Firewall.html</guid><category><![CDATA[IPSEC]]></category><category><![CDATA[ FORTIGATE]]></category><category><![CDATA[ SHORETEL]]></category><dc:creator><![CDATA[Jared Brodsky]]></dc:creator><pubDate>Tue, 21 Mar 2017 00:00:00 GMT</pubDate></item><item><title><![CDATA[DNS Made Easy 2048 bit DKIM support]]></title><description><![CDATA[<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>If you have ever attempted to create your own DKIM key for your own mail server you know it can be a daunting task. Every flavor SMTP DKIM configuration is a bit different.  Though once you&#8217;ve gotten your SMTP server configured with your private and public key, the easiest part of the entire process should be to make the necessary changes at your DNS provider,right? Unfortunately, not all providers support automatically accepting 2048 bit DKIM keys and you are ready to bang your head against the wall.  Why dont they support a 2048 bit key or larger? Well, their system wont automatically handle keys larger than 255 contiguous characters because they haven&#8217;t updated their interfaces to handle RFC 4408.  More on this in a bit.</p>
