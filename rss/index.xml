@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[blog.jarbro]]></title><description><![CDATA[made with ♥ in washington heights]]></description><link>http://blog.jarbro.com</link><image><url>http://i.imgur.com/mifLg3B.jpg</url><title>blog.jarbro</title><link>http://blog.jarbro.com</link></image><generator>RSS for Node</generator><lastBuildDate>Tue, 21 Mar 2017 20:50:57 GMT</lastBuildDate><atom:link href="http://blog.jarbro.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Shoretel No Service Behind Fortigate Firewall]]></title><description><![CDATA[<div id="preamble">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[blog.jarbro]]></title><description><![CDATA[made with ♥ in washington heights]]></description><link>http://blog.jarbro.com</link><image><url>http://i.imgur.com/mifLg3B.jpg</url><title>blog.jarbro</title><link>http://blog.jarbro.com</link></image><generator>RSS for Node</generator><lastBuildDate>Wed, 22 Mar 2017 16:19:22 GMT</lastBuildDate><atom:link href="http://blog.jarbro.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Shoretel No Service Behind Fortigate Firewall]]></title><description><![CDATA[<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>Got a call this morning reporting there was an issue with our phones this morning in our satellite office. The dreaded NO SERVICE message on the phones. After doing all the normal diagnostics and checks and resetting phones to factory, they still did not want to cooperate.</p>
 </div>
 <div class="paragraph">
-<p>Digging deeper I ran a packet capture from my Shoretel Switch to get more info.  I did not see anything all that interesting with the exception of each phone sending duplicate MGCP Duplicate Requests. The requests never went past the <a href="https://dreamforccie.wordpress.com/2010/08/07/understanding-mgcp-packets-a-brief-overview-and-example-with-debugs/">AUEP</a> stage of the negotiation. Now I at least now where to look. For some reason the phones were never getting the expected 200 code preventing it from booting normally.</p>
+<p>Digging deeper I ran a packet capture from my Shoretel Switch Diagnostic and Monitoring to get more info.  Upon inspection, I saw the phones sending MGCP Duplicate Requests. The requests never went past the <a href="https://dreamforccie.wordpress.com/2010/08/07/understanding-mgcp-packets-a-brief-overview-and-example-with-debugs/">AUEP</a> stage of the negotiation. Now I at least know where to look. For some reason the phones were never getting the expected 200 code preventing it from booting normally.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -12,7 +12,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Requests from the remote site looked like they were going out ok, however when looking at the response from my home office I noticed something odd, it was trying to route packets destined for the IPSEC tunnel over my WAN interface! <a href="http://i3.kym-cdn.com/entries/icons/original/000/001/692/omgwtfbbq2.jpg">OMGWTFBBQ</a>!!</p>
+<p>Requests from the remote site looked like they were going out ok, however when looking at the response from my home office I noticed something odd, it was trying to route packets destined for the IPSEC tunnel to the phones over my WAN interface! <a href="http://i3.kym-cdn.com/entries/icons/original/000/001/692/omgwtfbbq2.jpg">OMGWTFBBQ</a>!!</p>
 </div>
 <div class="paragraph">
 <p>To figure out if you are affected by the same issue, run the following commands on each end of your IPSEC tunnel.</p>
@@ -74,10 +74,10 @@ end</pre>
 <div class="sect4">
 <h5 id="_the_root_of_the_issue">The Root of the Issue</h5>
 <div class="paragraph">
-<p>Why did this happen? In my instance, it was due to having two WAN links. At somepoint in the night, while all IT people should be sleeping (cough, cough), the IPSEC tunnel between offices got interrupted and failed over as expected to backup.  Unfortunately, when the the primary link came back online, the FGT was still trying to push traffic over the backup WAN link for some strange reason (Which it never should have tried to do anyway).  The newly created policy should prevent this from happening in the event the primary goes out for any period of time.</p>
+<p>Why did this happen? In my instance, it was due to having two WAN links. At somepoint in the night, while all IT people should be sleeping (cough, cough), the IPSEC tunnel between offices got interrupted and failed over as expected to backup.  Unfortunately, when the the primary link came back online, the FGT was still trying to push IPSEC bound traffic over the backup WAN link for some strange reason (Which it never should have tried to do anyway).  The newly created policy should prevent this from happening in the event the primary goes out for any period of time.</p>
 </div>
 <div class="paragraph">
-<p>Has this happened to you and you&#8217;ve come up with a better solution or remedy, please share in the comments below.</p>
+<p>Has this happened to you? Have you come up with a better solution or remedy, please share in the comments below.</p>
 </div>
 </div>]]></description><link>http://blog.jarbro.com/2017/03/21/Shoretel-No-Service-Behind-Fortigate-Firewall.html</link><guid isPermaLink="true">http://blog.jarbro.com/2017/03/21/Shoretel-No-Service-Behind-Fortigate-Firewall.html</guid><category><![CDATA[IPSEC]]></category><category><![CDATA[ FORTIGATE]]></category><category><![CDATA[ SHORETEL]]></category><dc:creator><![CDATA[Jared Brodsky]]></dc:creator><pubDate>Tue, 21 Mar 2017 00:00:00 GMT</pubDate></item><item><title><![CDATA[DNS Made Easy 2048 bit DKIM support]]></title><description><![CDATA[<div id="preamble">
 <div class="sectionbody">

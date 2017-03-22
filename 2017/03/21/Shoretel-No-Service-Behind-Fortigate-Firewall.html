@@ -12,28 +12,49 @@
 
     <link rel="shortcut icon" href="http://blog.jarbro.com/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="//blog.jarbro.com/themes/casper/assets/css/screen.css?v=1490129457788" />
+    <link rel="stylesheet" type="text/css" href="//blog.jarbro.com/themes/casper/assets/css/screen.css?v=1490199562419" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
 
     <link rel="canonical" href="http://blog.jarbro.com/2017/03/21/Shoretel-No-Service-Behind-Fortigate-Firewall.html" />
     <meta name="referrer" content="origin" />
     
     <meta property="og:site_name" content="blog.jarbro" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="article" />
     <meta property="og:title" content="Shoretel No Service Behind Fortigate Firewall" />
     <meta property="og:description" content="Got a call this morning reporting there was an issue with our phones this morning in our satellite office. The dreaded NO SERVICE message on the phones. After doing all the normal diagnostics and checks and resetting phones to factory, they still did not want to cooperate. Digging deeper I" />
     <meta property="og:url" content="http://blog.jarbro.com/2017/03/21/Shoretel-No-Service-Behind-Fortigate-Firewall.html" />
+    <meta property="og:image" content="http://i.imgur.com/CPpAXvl.png" />
+    <meta property="article:published_time" content="2017-03-21T00:00:00.000Z" />
     <meta property="article:tag" content="IPSEC" />
     <meta property="article:tag" content=" FORTIGATE" />
     <meta property="article:tag" content=" SHORETEL" />
     
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Shoretel No Service Behind Fortigate Firewall" />
     <meta name="twitter:description" content="Got a call this morning reporting there was an issue with our phones this morning in our satellite office. The dreaded NO SERVICE message on the phones. After doing all the normal diagnostics and checks and resetting phones to factory, they still did not want to cooperate. Digging deeper I" />
     <meta name="twitter:url" content="http://blog.jarbro.com/2017/03/21/Shoretel-No-Service-Behind-Fortigate-Firewall.html" />
+    <meta name="twitter:image:src" content="http://i.imgur.com/CPpAXvl.png" />
     
     <script type="application/ld+json">
-null
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "blog.jarbro",
+    "author": {
+        "@type": "Person",
+        "name": "Jared Brodsky",
+        "image": "https://avatars1.githubusercontent.com/u/3271673?v=3",
+        "url": "http://blog.jarbro.com/author/jarbro/",
+        "sameAs": "blog.jarbro.com",
+        "description": "nothing to see here, move along."
+    },
+    "headline": "Shoretel No Service Behind Fortigate Firewall",
+    "url": "http://blog.jarbro.com/2017/03/21/Shoretel-No-Service-Behind-Fortigate-Firewall.html",
+    "datePublished": "2017-03-21T00:00:00.000Z",
+    "image": "http://i.imgur.com/CPpAXvl.png",
+    "keywords": "IPSEC,  FORTIGATE,  SHORETEL",
+    "description": "Got a call this morning reporting there was an issue with our phones this morning in our satellite office. The dreaded NO SERVICE message on the phones. After doing all the normal diagnostics and checks and resetting phones to factory, they still did not want to cooperate. Digging deeper I"
+}
     </script>
 
     <meta name="generator" content="HubPress" />
@@ -71,7 +92,7 @@ null
 <p>Got a call this morning reporting there was an issue with our phones this morning in our satellite office. The dreaded NO SERVICE message on the phones. After doing all the normal diagnostics and checks and resetting phones to factory, they still did not want to cooperate.</p>
 </div>
 <div class="paragraph">
-<p>Digging deeper I ran a packet capture from my Shoretel Switch to get more info.  I did not see anything all that interesting with the exception of each phone sending duplicate MGCP Duplicate Requests. The requests never went past the <a href="https://dreamforccie.wordpress.com/2010/08/07/understanding-mgcp-packets-a-brief-overview-and-example-with-debugs/">AUEP</a> stage of the negotiation. Now I at least now where to look. For some reason the phones were never getting the expected 200 code preventing it from booting normally.</p>
+<p>Digging deeper I ran a packet capture from my Shoretel Switch Diagnostic and Monitoring to get more info.  Upon inspection, I saw the phones sending MGCP Duplicate Requests. The requests never went past the <a href="https://dreamforccie.wordpress.com/2010/08/07/understanding-mgcp-packets-a-brief-overview-and-example-with-debugs/">AUEP</a> stage of the negotiation. Now I at least know where to look. For some reason the phones were never getting the expected 200 code preventing it from booting normally.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -79,7 +100,7 @@ null
 </div>
 </div>
 <div class="paragraph">
-<p>Requests from the remote site looked like they were going out ok, however when looking at the response from my home office I noticed something odd, it was trying to route packets destined for the IPSEC tunnel over my WAN interface! <a href="http://i3.kym-cdn.com/entries/icons/original/000/001/692/omgwtfbbq2.jpg">OMGWTFBBQ</a>!!</p>
+<p>Requests from the remote site looked like they were going out ok, however when looking at the response from my home office I noticed something odd, it was trying to route packets destined for the IPSEC tunnel to the phones over my WAN interface! <a href="http://i3.kym-cdn.com/entries/icons/original/000/001/692/omgwtfbbq2.jpg">OMGWTFBBQ</a>!!</p>
 </div>
 <div class="paragraph">
 <p>To figure out if you are affected by the same issue, run the following commands on each end of your IPSEC tunnel.</p>
@@ -141,10 +162,10 @@ end</pre>
 <div class="sect4">
 <h5 id="_the_root_of_the_issue">The Root of the Issue</h5>
 <div class="paragraph">
-<p>Why did this happen? In my instance, it was due to having two WAN links. At somepoint in the night, while all IT people should be sleeping (cough, cough), the IPSEC tunnel between offices got interrupted and failed over as expected to backup.  Unfortunately, when the the primary link came back online, the FGT was still trying to push traffic over the backup WAN link for some strange reason (Which it never should have tried to do anyway).  The newly created policy should prevent this from happening in the event the primary goes out for any period of time.</p>
+<p>Why did this happen? In my instance, it was due to having two WAN links. At somepoint in the night, while all IT people should be sleeping (cough, cough), the IPSEC tunnel between offices got interrupted and failed over as expected to backup.  Unfortunately, when the the primary link came back online, the FGT was still trying to push IPSEC bound traffic over the backup WAN link for some strange reason (Which it never should have tried to do anyway).  The newly created policy should prevent this from happening in the event the primary goes out for any period of time.</p>
 </div>
 <div class="paragraph">
-<p>Has this happened to you and you&#8217;ve come up with a better solution or remedy, please share in the comments below.</p>
+<p>Has this happened to you? Have you come up with a better solution or remedy, please share in the comments below.</p>
 </div>
 </div>
         </section>
@@ -231,9 +252,11 @@ end</pre>
 
         hljs.initHighlightingOnLoad();
       </script>
+       
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
-    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/jquery.fitvids.js?v=1490129457788"></script>
-    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/index.js?v=1490129457788"></script>
+    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/jquery.fitvids.js?v=1490199562419"></script>
+    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/index.js?v=1490199562419"></script>
 
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
