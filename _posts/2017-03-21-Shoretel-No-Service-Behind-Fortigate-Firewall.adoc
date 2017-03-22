@@ -5,11 +5,11 @@
 
 Got a call this morning reporting there was an issue with our phones this morning in our satellite office. The dreaded NO SERVICE message on the phones. After doing all the normal diagnostics and checks and resetting phones to factory, they still did not want to cooperate.
 
-Digging deeper I ran a packet capture from my Shoretel Switch to get more info.  I did not see anything all that interesting with the exception of each phone sending duplicate MGCP Duplicate Requests. The requests never went past the link:https://dreamforccie.wordpress.com/2010/08/07/understanding-mgcp-packets-a-brief-overview-and-example-with-debugs/[AUEP] stage of the negotiation. Now I at least now where to look. For some reason the phones were never getting the expected 200 code preventing it from booting normally. 
+Digging deeper I ran a packet capture from my Shoretel Switch Diagnostic and Monitoring to get more info.  Upon inspection, I saw the phones sending MGCP Duplicate Requests. The requests never went past the link:https://dreamforccie.wordpress.com/2010/08/07/understanding-mgcp-packets-a-brief-overview-and-example-with-debugs/[AUEP] stage of the negotiation. Now I at least know where to look. For some reason the phones were never getting the expected 200 code preventing it from booting normally. 
 
 image::https://i.imgur.com/LO5Od0Z.png[]
 
-Requests from the remote site looked like they were going out ok, however when looking at the response from my home office I noticed something odd, it was trying to route packets destined for the IPSEC tunnel over my WAN interface! link:http://i3.kym-cdn.com/entries/icons/original/000/001/692/omgwtfbbq2.jpg[OMGWTFBBQ]!!
+Requests from the remote site looked like they were going out ok, however when looking at the response from my home office I noticed something odd, it was trying to route packets destined for the IPSEC tunnel to the phones over my WAN interface! link:http://i3.kym-cdn.com/entries/icons/original/000/001/692/omgwtfbbq2.jpg[OMGWTFBBQ]!!
 
 To figure out if you are affected by the same issue, run the following commands on each end of your IPSEC tunnel.
 
@@ -62,6 +62,6 @@ end
 
 ##### The Root of the Issue
 
-Why did this happen? In my instance, it was due to having two WAN links. At somepoint in the night, while all IT people should be sleeping (cough, cough), the IPSEC tunnel between offices got interrupted and failed over as expected to backup.  Unfortunately, when the the primary link came back online, the FGT was still trying to push traffic over the backup WAN link for some strange reason (Which it never should have tried to do anyway).  The newly created policy should prevent this from happening in the event the primary goes out for any period of time.
+Why did this happen? In my instance, it was due to having two WAN links. At somepoint in the night, while all IT people should be sleeping (cough, cough), the IPSEC tunnel between offices got interrupted and failed over as expected to backup.  Unfortunately, when the the primary link came back online, the FGT was still trying to push IPSEC bound traffic over the backup WAN link for some strange reason (Which it never should have tried to do anyway).  The newly created policy should prevent this from happening in the event the primary goes out for any period of time.
 
-Has this happened to you and you've come up with a better solution or remedy, please share in the comments below.
+Has this happened to you? Have you come up with a better solution or remedy, please share in the comments below.
