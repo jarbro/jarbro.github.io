@@ -13,11 +13,9 @@ Requests from the remote site looked like they were going out ok, however when l
 
 To figure out if you are affected by the same issue, run the following commands on each end of your IPSEC tunnel.
 
-[source]
-----
+[source,numbered]
 >diag sys session filter dst <your phone or switch IP>
 >diag sys session list
-
 session info: proto=17 proto_state=00 duration=59663 expire=109 timeout=0 flags=00000000 sockflag=00000000 sockport=0 av_idx=0 use=4
 origin-shaper=
 reply-shaper=
@@ -35,7 +33,7 @@ misc=0 policy_id=38 auth_info=0 chk_client_info=0 vd=0
 serial=06476ede tos=ff/ff app_list=2004 app=16670 url_cat=0
 dd_type=0 dd_mode=0
 total session 1
-----
+
 
 By looking at the the above at **(1)** and **(2)**, you can see that traffic from 192.168.0.4 -> 192.168.1.100 is trying to be routed over the WAN link. This is no good.
 
@@ -45,7 +43,7 @@ To fix this issue, you can do one of two things, you can add a link:http://kb.fo
 
 In my instance I added a DENY policy which did the trick nicely. (Confirmed this was ok with Fortinet TAC)
 
-----
+[source,numbered]
 config firewall policy
 edit <policyID>
 set name "Block_Shoretel_WAN"
@@ -58,7 +56,7 @@ set service "ALL"
 set logtraffic all
 next
 end
-----
+
 
 ##### The Root of the Issue
 
