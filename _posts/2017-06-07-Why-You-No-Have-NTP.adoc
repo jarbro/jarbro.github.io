@@ -1,7 +1,7 @@
 # Why You No Have NTP?!
 :hp-image: https://i.imgur.com/vhNauXj.png
 :published_at: 2017-06-07
-:hp-tags: networking, ntp, sntp, switching, hp, procurve, 1810g
+:hp-tags: NETWORKING, NTP, SWITCHING, PROCURVE
 
 A few months back I had to replace on our switches.  Shortly after I began getting complaints that users workstations clocks were off by a minute here, a minute there.  It wasn't affecting the entire network, only a small subset of users. 
 
