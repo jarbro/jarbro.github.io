@@ -12,7 +12,7 @@
 
     <link rel="shortcut icon" href="http://blog.jarbro.com/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="//blog.jarbro.com/themes/casper/assets/css/screen.css?v=1496863188168" />
+    <link rel="stylesheet" type="text/css" href="//blog.jarbro.com/themes/casper/assets/css/screen.css?v=1496863663817" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
 
     <link rel="canonical" href="http://blog.jarbro.com/2017/06/07/Why-You-No-Have-NTP.html" />
@@ -21,7 +21,7 @@
     <meta property="og:site_name" content="blog.jarbro" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Why You No Have NTP?!" />
-    <meta property="og:description" content="A few months back I had to replace on our switches.  Shortly after I began getting complaints that users workstations clocks were off by a minute here, a minute there.  It wasn&amp;#8217;t affecting the entire network, only a small subset of users. At first I was convinced it" />
+    <meta property="og:description" content="A few months back I had to replace one of our switches.  Shortly afterwards I began getting complaints that users workstations clocks were off by a minute here, a minute there.  It wasn&amp;#8217;t affecting the entire network, only a small subset of users. At first I was convinced" />
     <meta property="og:url" content="http://blog.jarbro.com/2017/06/07/Why-You-No-Have-NTP.html" />
     <meta property="og:image" content="https://i.imgur.com/vhNauXj.png" />
     <meta property="article:published_time" content="2017-06-07T00:00:00.000Z" />
@@ -32,7 +32,7 @@
     
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Why You No Have NTP?!" />
-    <meta name="twitter:description" content="A few months back I had to replace on our switches.  Shortly after I began getting complaints that users workstations clocks were off by a minute here, a minute there.  It wasn&amp;#8217;t affecting the entire network, only a small subset of users. At first I was convinced it" />
+    <meta name="twitter:description" content="A few months back I had to replace one of our switches.  Shortly afterwards I began getting complaints that users workstations clocks were off by a minute here, a minute there.  It wasn&amp;#8217;t affecting the entire network, only a small subset of users. At first I was convinced" />
     <meta name="twitter:url" content="http://blog.jarbro.com/2017/06/07/Why-You-No-Have-NTP.html" />
     <meta name="twitter:image:src" content="https://i.imgur.com/vhNauXj.png" />
     
@@ -54,7 +54,7 @@
     "datePublished": "2017-06-07T00:00:00.000Z",
     "image": "https://i.imgur.com/vhNauXj.png",
     "keywords": "NETWORKING, NTP, SWITCHING, PROCURVE",
-    "description": "A few months back I had to replace on our switches.  Shortly after I began getting complaints that users workstations clocks were off by a minute here, a minute there.  It wasn&amp;#8217;t affecting the entire network, only a small subset of users. At first I was convinced it"
+    "description": "A few months back I had to replace one of our switches.  Shortly afterwards I began getting complaints that users workstations clocks were off by a minute here, a minute there.  It wasn&amp;#8217;t affecting the entire network, only a small subset of users. At first I was convinced"
 }
     </script>
 
@@ -89,13 +89,13 @@
 
         <section class="post-content">
             <div class="paragraph">
-<p>A few months back I had to replace on our switches.  Shortly after I began getting complaints that users workstations clocks were off by a minute here, a minute there.  It wasn&#8217;t affecting the entire network, only a small subset of users.</p>
+<p>A few months back I had to replace one of our switches.  Shortly afterwards I began getting complaints that users workstations clocks were off by a minute here, a minute there.  It wasn&#8217;t affecting the entire network, only a small subset of users.</p>
 </div>
 <div class="paragraph">
-<p>At first I was convinced it was my firewall blocking NTP traffic, but packet captures at the edge turned up nothing.  Packet captures from an affected host showed the outbound NTP requests going out, but no NTP response. There were no other Layer 3 devices in my network to block traffic.</p>
+<p>At first I was convinced it was my firewall blocking NTP traffic, but packet captures at the edge turned up nothing.  Packet captures from an affected host showed the outbound NTP requests going out, but no NTP response.</p>
 </div>
 <div class="paragraph">
-<p>After some additional physical network testing I narrowed it down to a HP V1810-48G switch which has a lovely feature from HP called Auto DoS.</p>
+<p>After some additional physical network testing I narrowed it down to an HP Procurve V1810-48G switch which has a lovely feature called Auto DoS.</p>
 </div>
 <div class="paragraph">
 <p>While I congratulate HP engineers for at least understanding the need for implementing security on L2, this particular implementation cost me a fair amount of time in troubleshooting. A single checkbox started <strong>blackholing</strong> my NTP traffic and their documentation simply labels the box as <em>Select Enable to enable denial of service attack protection, or clear to disable DoS protection.</em></p>
@@ -240,8 +240,8 @@
        
     <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
-    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/jquery.fitvids.js?v=1496863188168"></script>
-    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/index.js?v=1496863188168"></script>
+    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/jquery.fitvids.js?v=1496863663817"></script>
+    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/index.js?v=1496863663817"></script>
 
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
