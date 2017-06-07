@@ -3,11 +3,11 @@
 :published_at: 2017-06-07
 :hp-tags: NETWORKING, NTP, SWITCHING, PROCURVE
 
-A few months back I had to replace on our switches.  Shortly after I began getting complaints that users workstations clocks were off by a minute here, a minute there.  It wasn't affecting the entire network, only a small subset of users. 
+A few months back I had to replace one of our switches.  Shortly afterwards I began getting complaints that users workstations clocks were off by a minute here, a minute there.  It wasn't affecting the entire network, only a small subset of users. 
 
-At first I was convinced it was my firewall blocking NTP traffic, but packet captures at the edge turned up nothing.  Packet captures from an affected host showed the outbound NTP requests going out, but no NTP response. There were no other Layer 3 devices in my network to block traffic.
+At first I was convinced it was my firewall blocking NTP traffic, but packet captures at the edge turned up nothing.  Packet captures from an affected host showed the outbound NTP requests going out, but no NTP response. 
 
-After some additional physical network testing I narrowed it down to a HP V1810-48G switch which has a lovely feature from HP called Auto DoS.
+After some additional physical network testing I narrowed it down to an HP Procurve V1810-48G switch which has a lovely feature called Auto DoS.
 
 While I congratulate HP engineers for at least understanding the need for implementing security on L2, this particular implementation cost me a fair amount of time in troubleshooting. A single checkbox started *blackholing* my NTP traffic and their documentation simply labels the box as _Select Enable to enable denial of service attack protection, or clear to disable DoS protection._ 
 
