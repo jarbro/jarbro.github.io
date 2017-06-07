@@ -9,11 +9,15 @@ At first I was convinced it was my firewall blocking NTP traffic, but packet cap
 
 After some additional physical network testing I narrowed it down to an HP Procurve V1810-48G switch which has a lovely feature called Auto DoS.
 
-While I congratulate HP engineers for at least understanding the need for implementing security on L2, this particular implementation cost me a fair amount of time in troubleshooting. A single checkbox started *blackholing* my NTP traffic and their documentation simply labels the box as _Select Enable to enable denial of service attack protection, or clear to disable DoS protection._ 
+In a nutshell enabling Auto DoS will hose some of your network services.  
+
+A single checkbox started *blackholing* my NTP traffic and their documentation simply labels the box as _Select Enable to enable denial of service attack protection, or clear to disable DoS protection._ While it is disabled by default, for some reason, mine was _enabled_.   
+
+While I congratulate HP engineers for at least understanding the need for implementing security on L2, this particular implementation cost me a fair amount of time in troubleshooting and a huge headache. 
 
 Long story short
 
-Disable Auto DoS and things will go back to normal.
+Disable Auto DoS and things should go back to normal.
 
 For reference, this is what enabling Auto DoS actually does.
 
