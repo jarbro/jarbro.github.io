@@ -1,0 +1,26 @@
+# Disable Shared Experiences in Windows 10 v1703
+
+// :hp-image: /covers/cover.png
+:published_at: 2017-06-09
+:hp-tags: windows 10, shared experiences, group policy, imaging
+
+Another wonderful feature Microsoft has put into Windows 10 build 1703 is https://blogs.windows.com/buildingapps/2017/04/06/new-share-experience-windows-10-creators-update/#zJ8fkFwpFXkSIF2Y.97[*Shared Experiences*]. The feature stems from  Project Rome and is very similar to Apple's Handoff Feature.  It's not terribly difficult to disable from an end user perspective, but as an administrator you want a bit more control over your organization's workstations. 
+
+
+==== Disable in User Mode
+In order to disable the Shared Experiences from an end-user perspective.  Simply go to Settings > Shared Experiences and flick the toggle switch to off. 
+
+image::https://i.imgur.com/nboGSZs.png[Disable Shared Experiences User Mode]
+
+==== Disable via Group Policy
+
+. Open up Local Group Policy Editor > Windows + R key and type in gpedit.msc
+. Navigate to _Computer Configuration > Administrative Templates > System > Group Policy > Continue experiences on this device [Disable]_
+
+image::https://i.imgur.com/n6Z6wp9.png[Disable Shared Experiences Group Policy]
+
+That's all there is to it.
+
+
+
+
