@@ -21,5 +21,21 @@
   },
   "theme": {
     "name": "casper"
+  },
+  "urls": {
+    "site": "http://blog.jarbro.com",
+    "hubpress": "http://blog.jarbro.com",
+    "theme": "//blog.jarbro.com/themes/casper",
+    "images": "http://blog.jarbro.com/images"
+  },
+  "initialisationConfigComponent": {
+    "name": "initialise-configuration",
+    "computed": {},
+    "methods": {},
+    "staticRenderFns": [
+      null,
+      null,
+      null
+    ]
   }
 }
