@@ -2,7 +2,7 @@
 
 // :hp-image: /covers/cover.png
 :published_at: 2017-06-09
-:hp-tags: windows 10, shared experiences, group policy, imaging
+:hp-tags: windows 10, group policy, imaging
 
 Another wonderful feature Microsoft has put into Windows 10 build 1703 is https://blogs.windows.com/buildingapps/2017/04/06/new-share-experience-windows-10-creators-update/#zJ8fkFwpFXkSIF2Y.97[*Shared Experiences*]. The feature stems from  Project Rome and is very similar to Apple's Handoff Feature.  It's not terribly difficult to disable from an end user perspective, but as an administrator you want a bit more control over your organization's workstations. 
 
