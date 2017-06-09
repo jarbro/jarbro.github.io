@@ -10,14 +10,14 @@ Another wonderful feature Microsoft has put into Windows 10 build 1703 is https:
 ==== Disable in User Mode
 In order to disable the Shared Experiences from an end-user perspective.  Simply go to Settings > Shared Experiences and flick the toggle switch to off. 
 
-image::https://i.imgur.com/nboGSZs.png[Disable Shared Experiences User Mode]
+image::https://i.imgur.com/nboGSZs.png[Disable Shared Experiences User Mode,width=400]
 
 ==== Disable via Group Policy
 
 . Open up Local Group Policy Editor > Windows + R key and type in gpedit.msc
 . Navigate to _Computer Configuration > Administrative Templates > System > Group Policy > Continue experiences on this device [Disable]_
 
-image::https://i.imgur.com/n6Z6wp9.png[Disable Shared Experiences Group Policy]
+image::https://i.imgur.com/n6Z6wp9.png[Disable Shared Experiences Group Policy,width=400]
 
 That's all there is to it.
 
