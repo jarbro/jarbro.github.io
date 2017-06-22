@@ -8,16 +8,24 @@
   "site": {
     "title": "blog.jarbro",
     "description": "made with ♥ in washington heights",
-    "cover": "http://i.imgur.com/mifLg3B.jpg",
+    "cover": "",
     "googleAnalytics": "UA-71227-21",
-    "disqus": "jarbro"
+    "disqus": "jarbro",
+    "logo": "",
+    "delay": "",
+    "postsPerPage": ""
   },
   "socialnetwork": {
     "twitter": "jarbro",
     "linkedin": "jsbrodsky",
     "facebook": "jarbro",
     "instagram": "jarbro",
-    "github": "jarbro"
+    "github": "jarbro",
+    "email": "",
+    "googleplus": "",
+    "pinterest": "",
+    "flickr": "",
+    "stackoverflow": ""
   },
   "theme": {
     "name": "casper"
