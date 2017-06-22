@@ -6,12 +6,12 @@
     "cname": "blog.jarbro.com"
   },
   "site": {
-    "title": "blog.jarbro",
+    "title": "Jar(ed) Bro(dsky)",
     "description": "made with ♥ in washington heights",
     "cover": "",
     "googleAnalytics": "UA-71227-21",
     "disqus": "jarbro",
-    "logo": "https://i.imgur.com/EWFzGZA.png",
+    "logo": "",
     "delay": "",
     "postsPerPage": ""
   },
