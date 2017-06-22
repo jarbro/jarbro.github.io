@@ -1,5 +1,4 @@
 # Why You No Have NTP?!
-:hp-image: https://i.imgur.com/vhNauXj.png
 :published_at: 2017-06-07
 :hp-tags: NETWORKING, NTP, SWITCHING, PROCURVE
 
