@@ -1,4 +1,82 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[blog.jarbro]]></title><description><![CDATA[made with ♥ in washington heights]]></description><link>http://blog.jarbro.com</link><generator>RSS for Node</generator><lastBuildDate>Fri, 15 Mar 2019 14:09:26 GMT</lastBuildDate><atom:link href="http://blog.jarbro.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Disable Shared Experiences in Windows 10 v1703]]></title><description><![CDATA[<div id="preamble">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[blog.jarbro]]></title><description><![CDATA[made with ♥ in washington heights]]></description><link>http://blog.jarbro.com</link><generator>RSS for Node</generator><lastBuildDate>Fri, 15 Mar 2019 16:23:17 GMT</lastBuildDate><atom:link href="http://blog.jarbro.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Generate Symantec VIP Access Token as OTP]]></title><description><![CDATA[<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Recently I came across a web service that required two-factor authentication using the <a href="https://itunes.apple.com/us/app/vip-access-for-iphone/id307658513?mt=8">Symantec VIP Access App</a>.  I already manage all of my OTP tokens in a different app (If you are on iOS I highly reccomend using <a href="https://itunes.apple.com/us/app/otp-auth/id659877384?mt=8">OTP Auth</a> by <a href="https://cooperrs.de/otpauth.html">Roland Moers</a>.)  and did not want to have to use yet another app to generate the TOTP.</p>
+</div>
+<div class="paragraph">
+<p>There is a way to generate a Symantec VIP Access compatible token very easily if you have access to an environment which can run Python PIP. I happen to have Ubuntu  <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows Subsystem Linux</a> running on my machine. (If you are running Windows 10 and don&#8217;t have this you should really check it out.) Let&#8217;s get started&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_instructions">Instructions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here we install <em>python3-pip</em> and <em>qrencode</em> so we can generate our secret, ID, and QR code.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ sudo apt install python3-pip qrencode</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next we install the <em>python-vipaccess</em> tool from <a href="https://github.com/dlenski/">dlenksi&#8217;s github repo</a>.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ pip3 install https://github.com/dlenski/python-vipaccess/archive/HEAD.zip</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now we are going to generate our VIP Access token</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ vipaccess provision -p -t SYMC</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If everything worked correctly you should see the following output.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Generating request...
+Fetching provisioning response...
+Getting token from response...
+Decrypting token...
+Checking token...
+Credential created successfully:
+        otpauth://totp/VIP%20Access:SYMC54313423?period=30&amp;digits=6&amp;issuer=Symantec&amp;secret=5YKAUZA4I4RAIJIZBU4KME34XLODWEUX&amp;algorithm=SHA1
+This credential expires on this date: 2022-03-14T14:57:31.615Z
+
+You will need the ID to register this credential: SYMC54313423
+
+You can use oathtool to generate the same OTP codes
+as would be produced by the official VIP Access apps:
+
+    oathtool -d6 -b --totp    5YKAUZA4I4RAIJIZBU4KME34XLODWEUX  # 6-digit code
+    oathtool -d6 -b --totp -v 5YKAUZA4I4RAIJIZBU4KME34XLODWEUX  # ... with extra information</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can enter the TOTP secret just after <em>--totp</em> into your password manager or OTP app or in our case we&#8217;re going to create a QR code to scan into your OTP app. You should copy and paste the otp auth credential just after <em>Credential created successfully</em> in the previous step now.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ qrencode -t ANSI256 'otpauth://totp/VIP%20Access:SYMC54313423?period=30&amp;digits=6&amp;issuer=Symantec&amp;secret=5YKAUZA4I4RAIJIZBU4KME34XLODWEUX&amp;algorithm=SHA1'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see a QR code on your screen which you can then scan with your OTP app to generate your TOTP codes without ever having to use the Symantec VIP Access app! If you get an error, check to make sure you added single quotes around the otpauth:// string.</p>
+</div>
+<div class="paragraph">
+<p>Much love for <a href="https://github.com/cyrozap/">@cryozap</a> for <a href="https://www.cyrozap.com/2014/09/29/reversing-the-symantec-vip-access-provisioning-protocol/">reverse engineering the Symantec VIP Access Provisioning Protocol</a> and to <a href="https://github.com/dlenski">@dlenksi</a> for maintaining the <a href="https://github.com/dlenski/python-vipaccess">fork</a>.</p>
+</div>
+<div class="paragraph">
+<p>For more information on the <em>python-vipaccess</em> tool check out the <a href="https://github.com/dlenski/python-vipaccess/blob/master/README.md">README</a>.</p>
+</div>
+</div>
+</div>]]></description><link>http://blog.jarbro.com/2019/03/15/Generate-Symantec-VIP-Access-Token-as-OTP.html</link><guid isPermaLink="true">http://blog.jarbro.com/2019/03/15/Generate-Symantec-VIP-Access-Token-as-OTP.html</guid><dc:creator><![CDATA[Jared Brodsky]]></dc:creator><pubDate>Fri, 15 Mar 2019 00:00:00 GMT</pubDate></item><item><title><![CDATA[Disable Shared Experiences in Windows 10 v1703]]></title><description><![CDATA[<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>Another wonderful feature Microsoft has put into Windows 10 build 1703 is <a href="https://blogs.windows.com/buildingapps/2017/04/06/new-share-experience-windows-10-creators-update/#zJ8fkFwpFXkSIF2Y.97"><strong>Shared Experiences</strong></a>. The feature stems from  Project Rome and is very similar to Apple&#8217;s Handoff Feature.  It&#8217;s not terribly difficult to disable from an end user perspective, but as an administrator you want a bit more control over your organization&#8217;s workstations.</p>
