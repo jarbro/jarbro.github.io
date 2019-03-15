@@ -31,12 +31,12 @@
     "opencollective": ""
   },
   "theme": {
-    "name": "ghostium"
+    "name": "casper"
   },
   "urls": {
     "site": "http://blog.jarbro.com",
     "hubpress": "http://blog.jarbro.com",
-    "theme": "//blog.jarbro.com/themes/casper",
+    "theme": "//blog.jarbro.com/themes/ghostium",
     "images": "http://blog.jarbro.com/images"
   },
   "initialisationConfigComponent": {
