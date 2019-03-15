@@ -1,6 +1,0 @@
-= Convert Symantec VIP Token to TOTP
-See https://github.com/dlenski/python-vipaccess for information about the parameters.
-// :hp-image: /covers/cover.png
-:published_at: 2019-03-15
-:hp-tags: security, authentication, two-factor
-
