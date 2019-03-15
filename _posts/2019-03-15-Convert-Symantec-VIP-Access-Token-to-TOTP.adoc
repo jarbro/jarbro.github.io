@@ -4,9 +4,9 @@ See https://github.com/dlenski/python-vipaccess for information about the parame
 :published_at: 2019-03-15
 :hp-tags: security, authentication, two-factor
 
-Recently I came across a web service that required two-factor authentication using the https://itunes.apple.com/us/app/vip-access-for-iphone/id307658513?mt=8[Symantec VIP Access App].  I already manage all of my OTP tokens in a different app and did not want to have to use yet another app to generate the TOTP. If you are on iOS I highly reccomend using https://itunes.apple.com/us/app/otp-auth/id659877384?mt=8[OTP Auth] by https://cooperrs.de/otpauth.html[Roland Moers].
+Recently I came across a web service that required two-factor authentication using the https://itunes.apple.com/us/app/vip-access-for-iphone/id307658513?mt=8[Symantec VIP Access App].  I already manage all of my OTP tokens in a different app (If you are on iOS I highly reccomend using https://itunes.apple.com/us/app/otp-auth/id659877384?mt=8[OTP Auth] by https://cooperrs.de/otpauth.html[Roland Moers].)  and did not want to have to use yet another app to generate the TOTP. 
 
-There is a way to generate a Symantec VIP Access compatible token very easily if you have access to an environment which can run Python PIP. I happen to have Ubuntu  https://docs.microsoft.com/en-us/windows/wsl/install-win10[Windows Subsystem Linux] running on my machine. (If you are running Windows 10 and don't have this you should really check it out.) To get started, open up your WSL terminal and enter the following commands.
+There is a way to generate a Symantec VIP Access compatible token very easily if you have access to an environment which can run Python PIP. I happen to have Ubuntu  https://docs.microsoft.com/en-us/windows/wsl/install-win10[Windows Subsystem Linux] running on my machine. (If you are running Windows 10 and don't have this you should really check it out.) Let's get started...
 
 == Instructions
 
@@ -43,11 +43,12 @@ as would be produced by the official VIP Access apps:
     oathtool -d6 -b --totp -v 5YKAUZA4I4RAIJIZBU4KME34XLODWEUX  # ... with extra information
 ....
 
-You can enter the TOTP secret just after _--totp_ into your password manager or OTP app.  Alternatively, you can create a QR code to scan into your OTP Auth app using the following command. It is easier to copy and paste the otp auth credential just after _Credential created successfully_ in the previous step. (Don't forget to add single quotes!)
+You can enter the TOTP secret just after _--totp_ into your password manager or OTP app or in our case we're going to create a QR code to scan into your OTP app. You should copy and paste the otp auth credential just after _Credential created successfully_ in the previous step now. 
 
  $ qrencode -t ANSI256 'otpauth://totp/VIP%20Access:SYMC54313423?period=30&digits=6&issuer=Symantec&secret=5YKAUZA4I4RAIJIZBU4KME34XLODWEUX&algorithm=SHA1'
  
-You should see a QR code on your screen which you can then scan with your OTP app to generate your TOTP codes without ever having to use the Symantec VIP Access app! 
+You should see a QR code on your screen which you can then scan with your OTP app to generate your TOTP codes without ever having to use the Symantec VIP Access app! If you get an error, check to make sure you added single quotes around the otpauth:// string.
+
 
 Much love for https://github.com/cyrozap/[@cryozap] for https://www.cyrozap.com/2014/09/29/reversing-the-symantec-vip-access-provisioning-protocol/[reverse engineering the Symantec VIP Access Provisioning Protocol] and to https://github.com/dlenski[@dlenksi] for maintaining the https://github.com/dlenski/python-vipaccess[fork].
 
