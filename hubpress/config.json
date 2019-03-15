@@ -17,9 +17,9 @@
     "blogPath": ""
   },
   "socialnetwork": {
-    "twitter": "jarbro",
+    "twitter": "",
     "linkedin": "jaredbrodsky",
-    "facebook": "jarbro",
+    "facebook": "",
     "instagram": "jarbro",
     "github": "jarbro",
     "email": "",
@@ -36,7 +36,7 @@
   "urls": {
     "site": "http://blog.jarbro.com",
     "hubpress": "http://blog.jarbro.com",
-    "theme": "//blog.jarbro.com/themes/ghostium",
+    "theme": "//blog.jarbro.com/themes/casper",
     "images": "http://blog.jarbro.com/images"
   },
   "initialisationConfigComponent": {
