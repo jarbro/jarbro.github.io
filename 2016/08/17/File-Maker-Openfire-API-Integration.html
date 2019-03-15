@@ -1,19 +1,84 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
     <title>FileMaker Openfire API Integration</title>
-    <meta name="description" content="" />
 
-    <meta name="HandheldFriendly" content="True" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <link rel="shortcut icon" href="http://blog.jarbro.com/favicon.ico">
+    <meta name="description" content="">
 
-    <link rel="stylesheet" type="text/css" href="//blog.jarbro.com/themes/casper/assets/css/screen.css?v=1498168257766" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="FileMaker Openfire API Integration">
+    <meta name="twitter:description" content="">
+
+    <meta property="og:url" content="http://blog.jarbro.com">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="FileMaker Openfire API Integration">
+    <meta property="og:description" content="">
+    <meta property="og:site_name" content="blog.jarbro">
+
+    <meta itemprop="name" content="FileMaker Openfire API Integration">
+    <meta itemprop="description" content="">
+
+    <meta name="twitter:site" content="@yourblogtwitter">
+    
+    <meta name="twitter:creator" content="@yourtwitter">
+    
+    <meta property="article:author" content="https://www.facebook.com/yourprofile">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/yourblogprofile">
+    
+    <meta property="fb:admins" content="">
+    
+    <meta name="google-site-verification" content="">
+    
+    <link rel="author" href="https://plus.google.com/yourprofile">
+    
+    <meta name="theme-color" content="">
+
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="/apple-touch-icon-precomposed.png" rel="apple-touch-icon">
+
+    <link href="//fonts.googleapis.com/" rel="dns-prefetch">
+    <link href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400&subset=latin,latin-ext" rel="stylesheet">
+
+    <link rel="stylesheet" href="//blog.jarbro.com/themes/ghostium/assets/css/main.min.css?v=1552658566743">
+    <link rel="stylesheet" href="//blog.jarbro.com/themes/ghostium/assets/css/asciidoctor-foundation.css?v=1552658566743"/>
+
+    <script type="text/javascript">
+      var ga_ua = 'UA-XXXXX-X';
+      
+      var disqus_shortname = 'example';
+      
+      var enable_pjax = true;
+
+      // Pace Options
+      // ==============
+      window.paceOptions = {
+        catchupTime: 100,
+        minTime: 100,
+        elements: false,
+        restartOnRequestAfter: 500,
+        startOnPageLoad: false
+      }
+
+      // Ghostium Globals
+      // ==============
+      window.GHOSTIUM = {};
+      GHOSTIUM.haveGA = typeof ga_ua !== 'undefined' && ga_ua !== 'UA-XXXXX-X';
+      GHOSTIUM.haveDisqus = typeof disqus_shortname !== 'undefined' && disqus_shortname !== 'example';
+      GHOSTIUM.enablePjax = typeof enable_pjax !== 'undefined' ? enable_pjax : true;
+    </script>
+
+    <script src="//blog.jarbro.com/themes/ghostium/assets/js/head-scripts.min.js?v=1552658566743"></script>
 
     <link rel="canonical" href="http://blog.jarbro.com/2016/08/17/File-Maker-Openfire-API-Integration.html" />
     <meta name="referrer" content="origin" />
@@ -25,8 +90,8 @@
     <meta property="og:url" content="http://blog.jarbro.com/2016/08/17/File-Maker-Openfire-API-Integration.html" />
     <meta property="article:published_time" content="2016-08-17T00:00:00.000Z" />
     <meta property="article:tag" content="filemaker" />
-    <meta property="article:tag" content=" xmpp" />
-    <meta property="article:tag" content=" openfire" />
+    <meta property="article:tag" content="xmpp" />
+    <meta property="article:tag" content="openfire" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="FileMaker Openfire API Integration" />
@@ -41,7 +106,7 @@
     "author": {
         "@type": "Person",
         "name": "Jared Brodsky",
-        "image": "https://avatars1.githubusercontent.com/u/3271673?v=3",
+        "image": "https://avatars2.githubusercontent.com/u/3271673?v=4",
         "url": "http://blog.jarbro.com/author/jarbro/",
         "sameAs": "blog.jarbro.com",
         "description": "nothing to see here, move along."
@@ -49,41 +114,113 @@
     "headline": "FileMaker Openfire API Integration",
     "url": "http://blog.jarbro.com/2016/08/17/File-Maker-Openfire-API-Integration.html",
     "datePublished": "2016-08-17T00:00:00.000Z",
-    "keywords": "filemaker,  xmpp,  openfire",
+    "keywords": "filemaker, xmpp, openfire",
     "description": "We&amp;#8217;ve been using Openfire XMPP at my company since ~2004 and wanted to be able to push out some alerts to our users from FileMaker using our existing chat client. In this example we are just going to send a system broadcast message to all users. For other"
 }
     </script>
 
     <meta name="generator" content="HubPress" />
     <link rel="alternate" type="application/rss+xml" title="blog.jarbro" href="http://blog.jarbro.com/rss/" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/atom-one-dark.min.css">
-</head>
-<body class="post-template tag-filemaker tag-xmpp tag-openfire nav-closed">
-
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism-okaidia.min.css">
     
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </head>
+  <body class="post-template tag-filemaker tag-xmpp tag-openfire">
 
-    <div class="site-wrapper">
-
-        
-
-
-<header class="main-header post-head no-cover">
-    <nav class="main-nav  clearfix">
-        
+    <button data-action="open-drawer" id="drawer-button" class="drawer-button"><i class="fa fa-bars"></i></button>
+    <nav tabindex="-1" class="drawer">
+      <div class="drawer-container">
+        <!--.drawer-search(role="search")-->
+        <ul role="navigation" class="drawer-list">
+          
+          <li class="drawer-list-item">
+            <a href="/" data-pjax>
+              <i class="fa fa-home"></i>Home
+            </a>
+          </li>
+          <li class="drawer-list-item">
+            <a href="http://blog.jarbro.com/rss/">
+              <i class="fa fa-rss"></i>Subscribe to Feed
+            </a>
+          </li>
+          <li class="drawer-list-divider"></li>
+          <li class="drawer-list-item drawer-list-title">
+            Follow me
+          </li>
+          
+          
+          <li class="drawer-list-item">
+            <a href="jarbro" title="Twitter" target="_blank">
+              <i class="fa fa-twitter"></i>Twitter
+            </a>
+          </li>
+          <li class="drawer-list-item">
+            <a href="jarbro" title="Github" target="_blank">
+              <i class="fa fa-github"></i>Github
+            </a>
+          </li>
+          <li class="drawer-list-item">
+            <a href="jarbro" title="Facebook" target="_blank">
+              <i class="fa fa-facebook"></i>Facebook
+            </a>
+          </li>
+          <li class="drawer-list-item">
+            <a href="jarbro" title="Instagram" target="_blank">
+              <i class="fa fa-instagram"></i>Instagram
+            </a>
+          </li>
+          <li class="drawer-list-item">
+            <a href="jaredbrodsky" title="LinkedIn" target="_blank">
+              <i class="fa fa-linkedin"></i>LinkedIn
+            </a>
+          </li>
+        </ul>
+      </div>
     </nav>
-</header>
 
-<main class="content" role="main">
-    <article class="post tag-filemaker tag-xmpp tag-openfire">
-
-        <header class="post-header">
-            <h1 class="post-title">FileMaker Openfire API Integration</h1>
-            <section class="post-meta">
-                <time class="post-date" datetime="2016-08-17">17 August 2016</time>  on <a href="http://blog.jarbro.com/tag/filemaker/">filemaker</a>, <a href="http://blog.jarbro.com/tag/xmpp/"> xmpp</a>, <a href="http://blog.jarbro.com/tag/openfire/"> openfire</a>
-            </section>
-        </header>
-
-        <section class="post-content">
+    <div class="drawer-overlay"></div>
+    <main id="container" role="main" class="container">
+      <div class="surface">
+        <div class="surface-container">
+          <div data-pjax-container class="content">
+            
+<section class="wrapper wrapper-post">
+  <div class="wrapper-container">
+    <article itemscope itemtype="http://schema.org/BlogPosting" role="article" class="post post tag-filemaker tag-xmpp tag-openfire">
+        <section class="post-container">
+          <header class="post-header">
+            <ul class="post-meta-list">
+              <li class="post-meta-item">
+                <time datetime="2016-08-17" itemprop="datePublished">
+                  3 years ago
+                </time>
+              </li>
+                <li class="post-meta-item">
+                    <a itemprop="articleSection" href="/" data-pjax>filemaker</a>, 
+                    <a itemprop="keywords" href="/" data-pjax>xmpp</a>, 
+                    <a itemprop="keywords" href="/" data-pjax>openfire</a> 
+                </li>
+              <li class="post-meta-item">
+                <a href="#disqus_thread" data-disqus-identifier="">Comments</a>
+              </li>
+            </ul>
+            <h1 itemprop="name headline" class="post-title"><a href="/" itemprop="url" data-pjax title="FileMaker Openfire API Integration">FileMaker Openfire API Integration</a></h1>
+            <!--h2 itemprop="about" class="post-subtitle"></h2-->
+          </header>
+          <aside class="post-side">
+            <div class="post-author">
+                <a href="blog.jarbro.com" class="post-author-avatar">
+                  <img src="https://avatars2.githubusercontent.com/u/3271673?v&#x3D;4" alt="Jared Brodsky">
+                </a>
+              <div class="post-author-info">
+                <a href="blog.jarbro.com" class="post-author-name">
+                  Jared Brodsky
+                </a>
+                <p class="post-author-bio">nothing to see here, move along.</p>
+              </div>
+            </div>
+          </aside>
+          <div itemprop="articleBody" class="post-body">
             <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -188,79 +325,75 @@ Exit Script[]</pre>
 </div>
 </div>
 </div>
+          </div>
+          <footer class="post-footer">
+            <div itemprop="author" itemscope itemtype="http://schema.org/Person" class="post-author">
+                <a href="blog.jarbro.com" class="post-author-avatar">
+                  <img itemprop="image" src="https://avatars2.githubusercontent.com/u/3271673?v&#x3D;4" alt="Jared Brodsky">
+                </a>
+              <div class="post-author-info">
+                <h4 class="post-footer-heading">Written By</h4>
+                <a href="blog.jarbro.com" itemprop="url" class="post-author-name">
+                  <span itemprop="name">Jared Brodsky</span>
+                </a>
+                <p itemprop="description" class="post-author-bio">nothing to see here, move along.</p>
+                  <p class="post-author-location">I ❤︎ NYC</p>
+                  <p class="post-author-website">
+                    <a href="blog.jarbro.com" rel="nofollow">blog.jarbro.com</a>
+                  </p>
+                <p class="post-info">
+                  <b class="post-info-title">Published on</b>
+                  <time class="post-date">August 17, 2016</time>
+                </p>
+              </div>
+            </div>
+            <div class="post-social">
+              <h4 class="post-footer-heading">Spread the word</h4>
+              <a href="#" data-action="share-twitter"><i class="fa fa-fw fa-lg fa-twitter"></i></a>
+              <a href="#" data-action="share-facebook"><i class="fa fa-fw fa-lg fa-facebook"></i></a>
+              <a href="#" data-action="share-gplus"><i class="fa fa-fw fa-lg fa-google-plus"></i></a>
+            </div>
+          </footer>
         </section>
 
-        <footer class="post-footer">
-
-
-            <figure class="author-image">
-                <a class="img" href="http://blog.jarbro.com/author/jarbro/" style="background-image: url(https://avatars1.githubusercontent.com/u/3271673?v&#x3D;3)"><span class="hidden">Jared Brodsky's Picture</span></a>
-            </figure>
-
-            <section class="author">
-                <h4><a href="http://blog.jarbro.com/author/jarbro/">Jared Brodsky</a></h4>
-
-                    <p>nothing to see here, move along.</p>
-                <div class="author-meta">
-                    <span class="author-location icon-location">I ❤︎ NYC</span>
-                    <span class="author-link icon-link"><a href="blog.jarbro.com">blog.jarbro.com</a></span>
-                </div>
-            </section>
-
-
-            <section class="share">
-                <h4>Share this post</h4>
-                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=FileMaker%20Openfire%20API%20Integration&amp;url=http://blog.jarbro.com/"
-                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-                    <span class="hidden">Twitter</span>
-                </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.jarbro.com/"
-                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-                    <span class="hidden">Facebook</span>
-                </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://blog.jarbro.com/"
-                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-                    <span class="hidden">Google+</span>
-                </a>
-            </section>
-
-        </footer>
-
-
-        <section class="post-comments">
-          <div id="disqus_thread"></div>
-          <script type="text/javascript">
-          var disqus_shortname = 'jarbro'; // required: replace example with your forum shortname
-          /* * * DON'T EDIT BELOW THIS LINE * * */
-          (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          })();
-          </script>
-          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        </section>
-
+      <section class="post-comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        var disqus_shortname = 'jarbro'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
 
     </article>
 
-</main>
+    <footer role="contentinfo" class="footer">
+      <p><small>© 2019. All Rights Reserved.</small></p>
+      <p><small><a href="http://ghostium.oswaldoacauan.com/" target="_blank">Ghostium Theme</a> by <a href="http://twitter.com/oswaldoacauan" target="_blank">@oswaldoacauan</a></small></p>
+      <p><small>Proudly published with <a href="https://hubpress.github.io" target="_blank">HubPress</a></small></p>
+    </footer>
+  </div>
+</section>
 
-<aside class="read-next">
-</aside>
+
+          </div>
+        </div>
+      </div>
+    </main>
 
 
-
-        <footer class="site-footer clearfix">
-            <section class="copyright"><a href="http://blog.jarbro.com">blog.jarbro</a> &copy; 2017</section>
-            <section class="poweredby">Proudly published with <a href="http://hubpress.io">HubPress</a></section>
-        </footer>
-
-    </div>
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js?v="></script> 
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/prism.min.js?v="></script> 
       <script type="text/javascript">
         jQuery( document ).ready(function() {
           // change date with ago
@@ -270,13 +403,10 @@ Exit Script[]</pre>
           });
         });
 
-        hljs.initHighlightingOnLoad();
+        // hljs.initHighlightingOnLoad();
       </script>
-       
-    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
-    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/jquery.fitvids.js?v=1498168257766"></script>
-    <script type="text/javascript" src="//blog.jarbro.com/themes/casper/assets/js/index.js?v=1498168257766"></script>
+    <script src="//blog.jarbro.com/themes/ghostium/assets/js/foot-scripts.min.js?v=1552658566743"></script>
 
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -288,5 +418,5 @@ Exit Script[]</pre>
     ga('send', 'pageview');
 
     </script>
-</body>
+  </body>
 </html>

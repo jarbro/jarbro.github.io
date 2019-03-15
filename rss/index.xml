@@ -1,1 +1,369 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[blog.jarbro]]></title><description><![CDATA[made with ♥ in washington heights]]></description><link>http://blog.jarbro.com</link><generator>RSS for Node</generator><lastBuildDate>Fri, 15 Mar 2019 14:00:35 GMT</lastBuildDate><atom:link href="http://blog.jarbro.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl></channel></rss>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[blog.jarbro]]></title><description><![CDATA[made with ♥ in washington heights]]></description><link>http://blog.jarbro.com</link><generator>RSS for Node</generator><lastBuildDate>Fri, 15 Mar 2019 14:02:46 GMT</lastBuildDate><atom:link href="http://blog.jarbro.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Disable Shared Experiences in Windows 10 v1703]]></title><description><![CDATA[<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Another wonderful feature Microsoft has put into Windows 10 build 1703 is <a href="https://blogs.windows.com/buildingapps/2017/04/06/new-share-experience-windows-10-creators-update/#zJ8fkFwpFXkSIF2Y.97"><strong>Shared Experiences</strong></a>. The feature stems from  Project Rome and is very similar to Apple&#8217;s Handoff Feature.  It&#8217;s not terribly difficult to disable from an end user perspective, but as an administrator you want a bit more control over your organization&#8217;s workstations.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_disable_in_user_mode">Disable in User Mode</h4>
+<div class="paragraph">
+<p>In order to disable the Shared Experiences from an end-user perspective.  Simply go to Settings &gt; Shared Experiences and flick the toggle switch to off.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="https://i.imgur.com/nboGSZs.png" alt="Disable Shared Experiences User Mode" width="600">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_disable_via_group_policy">Disable via Group Policy</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open up Local Group Policy Editor &gt; Windows + R key and type in gpedit.msc</p>
+</li>
+<li>
+<p>Navigate to <em>Computer Configuration &gt; Administrative Templates &gt; System &gt; Group Policy &gt; Continue experiences on this device [Disable]</em></p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="https://i.imgur.com/n6Z6wp9.png" alt="Disable Shared Experiences Group Policy" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>That&#8217;s all there is to it.</p>
+</div>
+</div>]]></description><link>http://blog.jarbro.com/2017/06/09/Disable-Shared-Experiences-in-Windows-10-v1703.html</link><guid isPermaLink="true">http://blog.jarbro.com/2017/06/09/Disable-Shared-Experiences-in-Windows-10-v1703.html</guid><dc:creator><![CDATA[Jared Brodsky]]></dc:creator><pubDate>Fri, 09 Jun 2017 00:00:00 GMT</pubDate></item><item><title><![CDATA[Why You No Have NTP?!]]></title><description><![CDATA[<div class="paragraph">
+<p>A few months back I had to replace one of our switches.  Shortly afterwards I began getting complaints that users workstations clocks were off by a minute here, a minute there.  It wasn&#8217;t affecting the entire network, only a small subset of users.</p>
+</div>
+<div class="paragraph">
+<p>At first I was convinced it was my firewall blocking NTP traffic, but packet captures at the edge turned up nothing.  Packet captures from an affected host showed the outbound NTP requests going out, but no NTP response.</p>
+</div>
+<div class="paragraph">
+<p>After some additional physical network testing I narrowed it down to an HP Procurve V1810-48G switch which has a lovely feature called Auto DoS.</p>
+</div>
+<div class="paragraph">
+<p>In a nutshell enabling Auto DoS will hose some of your network services.</p>
+</div>
+<div class="paragraph">
+<p>A single checkbox started <strong>blackholing</strong> my NTP traffic and their documentation simply labels the box as <em>Select Enable to enable denial of service attack protection, or clear to disable DoS protection.</em> While it is disabled by default, for some reason, mine was <em>enabled</em>.</p>
+</div>
+<div class="paragraph">
+<p>While I congratulate HP engineers for at least understanding the need for implementing security on L2, this particular implementation cost me a fair amount of time in troubleshooting and a huge headache.</p>
+</div>
+<div class="paragraph">
+<p>Long story short</p>
+</div>
+<div class="paragraph">
+<p>Disable Auto DoS and things should go back to normal.</p>
+</div>
+<div class="paragraph">
+<p>For reference, this is what enabling Auto DoS actually does.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Auto DoS</p>
+</div>
+<div class="paragraph">
+<p>Enable – Select to prevent receiving packets from the all attacks mentioned below (Default: Disabled).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Prevent Land Attack – Prevents receiving packets with matching Source and Destination IP addresses.</p>
+</li>
+<li>
+<p>Prevent TCP Blat Attack – TCP Source and Destination Port match</p>
+</li>
+<li>
+<p>Prevent UDP Blat Attack – UDP Source and Destination Port match</p>
+</li>
+<li>
+<p>Prevent Ping Of Death Attack – Prevents receiving ping packets with a size larger than 512 bytes through the use of fragments, which can target vulnerable systems.</p>
+</li>
+<li>
+<p>Prevent Invalid TCP Flags Attack – Prevents receiving packets with invalid TCP flags. TCP Flag SYN set and Source Port less than 1024 or TCP Control Flags = 0 and * TCP Sequence Number = 0 or TCP Flags FIN, URG, and PSH set and TCP Sequence Number = 0 or TCP Flags SYN and FIN set.</p>
+</li>
+<li>
+<p>Prevent TCP Fragment Attack – Drop IP Packets that have a TCP header less than 20 bytes.</p>
+</li>
+<li>
+<p>Check First Fragment Only – Enable checking DOS attacks on IP first fragments</p>
+</li>
+<li>
+<p>Prevent Smurf Attack – ICMP Echo packets (ping) to a broadcast IP address are dropped.</p>
+</li>
+<li>
+<p>Prevent Ping Flood Attack – Prevents Ping Flood by limiting the number of ICMP Ping packets. The rate is 1000 ICMP packets per second.</p>
+</li>
+<li>
+<p>Prevent Syn Flood Attack – A SYN flood attack sends TCP connections requests faster than a machine can process them. Setting this filter limits the rate of TCP connection requests.</p>
+</li>
+</ul>
+</div>
+</blockquote>
+</div>]]></description><link>http://blog.jarbro.com/2017/06/07/Why-You-No-Have-NTP.html</link><guid isPermaLink="true">http://blog.jarbro.com/2017/06/07/Why-You-No-Have-NTP.html</guid><category><![CDATA[NETWORKING]]></category><category><![CDATA[NTP]]></category><category><![CDATA[SWITCHING]]></category><category><![CDATA[PROCURVE]]></category><dc:creator><![CDATA[Jared Brodsky]]></dc:creator><pubDate>Wed, 07 Jun 2017 00:00:00 GMT</pubDate></item><item><title><![CDATA[Shoretel No Service Behind Fortigate Firewall]]></title><description><![CDATA[<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Got a call this morning reporting there was an issue with our phones this morning in our satellite office. The dreaded NO SERVICE message on the phones. After doing all the normal diagnostics and checks and resetting phones to factory, they still did not want to cooperate.</p>
+</div>
+<div class="paragraph">
+<p>Digging deeper I ran a packet capture from my Shoretel Switch Diagnostic and Monitoring to get more info.  Upon inspection, I saw the phones sending MGCP Duplicate Requests. The requests never went past the <a href="https://dreamforccie.wordpress.com/2010/08/07/understanding-mgcp-packets-a-brief-overview-and-example-with-debugs/">AUEP</a> stage of the negotiation. Now I at least know where to look. For some reason the phones were never getting the expected 200 code preventing it from booting normally.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="https://i.imgur.com/LO5Od0Z.png" alt="LO5Od0Z">
+</div>
+</div>
+<div class="paragraph">
+<p>Requests from the remote site looked like they were going out ok, however when looking at the response from my home office I noticed something odd, it was trying to route packets destined for the IPSEC tunnel to the phones over my WAN interface! <a href="http://i3.kym-cdn.com/entries/icons/original/000/001/692/omgwtfbbq2.jpg">OMGWTFBBQ</a>!!</p>
+</div>
+<div class="paragraph">
+<p>To figure out if you are affected by the same issue, run the following commands on each end of your IPSEC tunnel.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-numbered" data-lang="numbered">&gt;diag sys session filter dst &lt;your phone or switch IP&gt;
+&gt;diag sys session list
+session info: proto=17 proto_state=00 duration=59663 expire=109 timeout=0 flags=00000000 sockflag=00000000 sockport=0 av_idx=0 use=4
+origin-shaper=
+reply-shaper=
+per_ip_shaper=
+ha_id=0 policy_dir=0 tunnel=/ vlan_cos=0/255
+state=log may_dirty none
+statistic(bytes/packets/allow_err): org=768551/7929/1 reply=0/0/0 tuples=3
+tx speed(Bps/kbps): 13/0 rx speed(Bps/kbps): 0/0
+orgin-&gt;sink: org pre-&gt;post, reply pre-&gt;post dev=37-&gt;7/7-&gt;37 gwy=x.x.WAN.GW/0.0.0.0  &lt;*&gt;
+hook=post dir=org act=snat 192.168.0.4:2727-192.168.1.100:2427(x.x.x.WAN:63143) &lt;*&gt;
+hook=pre dir=reply act=dnat 192.168.1.100:2427-&gt;.x.x.WAN:63143(192.168.0.4:2727)
+hook=post dir=reply act=noop 192.168.1.100:2427-&gt;192.168.0.4:2727(0.0.0.0:0)
+src_mac=00:10:49:16:xx:xx
+misc=0 policy_id=38 auth_info=0 chk_client_info=0 vd=0
+serial=06476ede tos=ff/ff app_list=2004 app=16670 url_cat=0
+dd_type=0 dd_mode=0
+total session 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By looking at the the above at <strong>(1)</strong> and <strong>(2)</strong>, you can see that traffic from 192.168.0.4 &#8594; 192.168.1.100 is trying to be routed over the WAN link. This is no good.</p>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_remedy">Remedy</h5>
+<div class="paragraph">
+<p>To fix this issue, you can do one of two things, you can add a <a href="http://kb.fortinet.com/kb/microsites/search.do?cmd=displayKC&amp;docType=kc&amp;externalId=13842&amp;sliceId=1&amp;docTypeID=DT_KCARTICLE_1_1&amp;dialogID=59571995&amp;stateId=0%200%2059573459">blackhole static route</a> to your config, or you can add a DENY policy to your firewall.</p>
+</div>
+<div class="paragraph">
+<p>In my instance I added a DENY policy which did the trick nicely. (Confirmed this was ok with Fortinet TAC)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-numbered" data-lang="numbered">config firewall policy
+edit &lt;policyID&gt;
+set name "Block_Shoretel_WAN"
+set srcintf "LAN"
+set dstintf "wan"
+set srcaddr "Shoretel_LAN"
+set dstaddr "remote_subnet_1"
+set schedule "always"
+set service "ALL"
+set logtraffic all
+next
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_the_root_of_the_issue">The Root of the Issue</h5>
+<div class="paragraph">
+<p>Why did this happen? In my instance, it was due to having two WAN links. At somepoint in the night, while all IT people should be sleeping (cough, cough), the IPSEC tunnel between offices got interrupted and failed over as expected to backup.  Unfortunately, when the the primary link came back online, the FGT was still trying to push IPSEC bound traffic over the backup WAN link for some strange reason (Which it never should have tried to do anyway).  The newly created policy should prevent this from happening in the event the primary goes out for any period of time.</p>
+</div>
+<div class="paragraph">
+<p>Has this happened to you? Have you come up with a better solution or remedy, please share in the comments below.</p>
+</div>
+</div>]]></description><link>http://blog.jarbro.com/2017/03/21/Shoretel-No-Service-Behind-Fortigate-Firewall.html</link><guid isPermaLink="true">http://blog.jarbro.com/2017/03/21/Shoretel-No-Service-Behind-Fortigate-Firewall.html</guid><category><![CDATA[IPSEC]]></category><category><![CDATA[FORTIGATE]]></category><category><![CDATA[SHORETEL]]></category><dc:creator><![CDATA[Jared Brodsky]]></dc:creator><pubDate>Tue, 21 Mar 2017 00:00:00 GMT</pubDate></item><item><title><![CDATA[DNS Made Easy 2048 bit DKIM support]]></title><description><![CDATA[<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you have ever attempted to create your own DKIM key for your own mail server you know it can be a daunting task. Every flavor SMTP DKIM configuration is a bit different.  Though once you&#8217;ve gotten your SMTP server configured with your private and public key, the easiest part of the entire process should be to make the necessary changes at your DNS provider,right? Unfortunately, not all providers support automatically accepting 2048 bit DKIM keys and you are ready to bang your head against the wall.  Why dont they support a 2048 bit key or larger? Well, their system wont automatically handle keys larger than 255 contiguous characters because they haven&#8217;t updated their interfaces to handle RFC 4408.  More on this in a bit.</p>
+</div>
+<div class="paragraph">
+<p>If you are using <a href="https://cp.dnsmadeeasy.com/u/117059">DNS Made Easy</a> like I was, you probably ran across the error when trying to enter your DKIM key.</p>
+</div>
+<div class="paragraph">
+<p><strong>"Contiguous strings may not be longer than 255 characters"</strong></p>
+</div>
+<div class="paragraph">
+<p>Thankfully, <a href="https://tools.ietf.org/html/rfc4408#section-3.1.3">DNS RFC 4408</a> has a way for <a href="https://kb.isc.org/article/AA-00356/0/Can-I-have-a-TXT-or-SPF-record-longer-than-255-characters.html">handling</a> this. While there is no knowledge base entry on the DNSME support site, they do in fact support 2048 bit keys, but you&#8217;ll have to open a support ticket to get the answer.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;ve generated a sample 2048 bit key using <a href="https://www.port25.com/dkim-wizard/">Port25 DKIM Wizard</a> for my example.</p>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_example">Example</h6>
+<div class="paragraph">
+<p><strong>Generated 2048 bit key</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA38K27694dPpB72IgyYh/d6bOaSTe4vXlaPOFjAn4Mef8VGA8Cnvb2VWx0wV2HvqAR62iHjBVZc6otsYI35MIwOh6cunL5ypwIQ0+ALUd5+qUz6ww2vAPkt0iPudIwg41Zmv+tR74zZGNHtV+691i6jCYKEJ6iJlfJqwM+HigDy5T62Qp5FaVSDom/y4eLinme0Vdg1AZQ4Vg5/fK1PtVNTrqwFqzGy6IdmVjImfcNtAZ/CXSzKLUmsPHxo/ST88XFK9jUUW8vYcT9Yw+Ma0mce9mCcxITpCG5jrX07K+Y+kNJPesZ9v/prwQ+4JVtoT2FrJE6nFqHGLGpTzUVGKkTQIDAQAB</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Modified 2048 bit key for DNS Made Easy</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA38K27694dPpB72IgyYh/d6bOaSTe4vXlaPOFjAn4Mef8VGA8Cnvb2VWx0wV2HvqAR62iHjBVZc6otsYI35MIwOh6cunL5ypwIQ0+ALUd5+qUz6ww2vAPkt0iPudIwg41Zmv+tR74zZGNHtV+691i6jCYKEJ6iJlfJqwM+HigDy5T62Qp5FaVSDom/y4eLinme"
+"0Vdg1AZQ4Vg5/fK1PtVNTrqwFqzGy6IdmVjImfcNtAZ/CXSzKLUmsPHxo/ST88XFK9jUUW8vYcT9Yw+Ma0mce9mCcxITpCG5jrX07K+Y+kNJPesZ9v/prwQ+4JVtoT2FrJE6nFqHGLGpTzUVGKkTQIDAQAB"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>What I&#8217;ve done here is I&#8217;ve broken out the first 255 characters of the DKIM key and wrapped it in quotes.  The remaining characters are also wrapped in quotes.</p>
+</div>
+<div class="paragraph">
+<p>without the DKIM it would look something like this.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>"v=DKIM1; k=rsa................" "....................."</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To help you count characters, don&#8217;t count by hand, use this <a href="http://charactercounttool.com/">tool</a>.</p>
+</div>
+<div class="paragraph">
+<p>Many DNS providers out there are smart enough to automatically handle long DKIM keys.  I&#8217;ve tested 2048 bit with the following providers who automatically handle long keys with ease.</p>
+</div>
+<div class="paragraph">
+<p><strong>In no particular order</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://dns.he.net">Hurricane DNS (Free)</a></p>
+</li>
+<li>
+<p><a href="https://easydns.com">EasyDNS (Paid)</a></p>
+</li>
+<li>
+<p><a href="https://cloudflare.com">Cloudflare (Free/Paid)</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Some links above may be affiliate links to help cover my server costs and beer.</strong></p>
+</div>
+<div class="paragraph">
+<p>Original post @ <a href="http://jarb.ro/2cj60U0">blog.jarbro.com</a></p>
+</div>
+</div>]]></description><link>http://blog.jarbro.com/2016/09/07/DNS-Made-Easy-2048-bit-DKIM-support.html</link><guid isPermaLink="true">http://blog.jarbro.com/2016/09/07/DNS-Made-Easy-2048-bit-DKIM-support.html</guid><category><![CDATA[DNS]]></category><category><![CDATA[DKIM]]></category><dc:creator><![CDATA[Jared Brodsky]]></dc:creator><pubDate>Wed, 07 Sep 2016 00:00:00 GMT</pubDate></item><item><title><![CDATA[FileMaker Openfire API Integration]]></title><description><![CDATA[<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>We&#8217;ve been using Openfire XMPP at my company since ~2004 and wanted to be able to push out some alerts to our users from FileMaker using our existing chat client. In this example we are just going to send a system broadcast message to all users. For other uses you can find the Full REST API documentation <a href="https://www.igniterealtime.org/projects/openfire/plugins/restapi/readme.html">here</a></p>
+</div>
+<div class="paragraph">
+<p>What you will need.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Latest Version of Openfire XMPP server <a href="https://igniterealtime.org/downloads/index.jsp#openfire">Link</a></p>
+</li>
+<li>
+<p>FileMaker Pro or Server</p>
+</li>
+<li>
+<p>Base Elements Plugin <a href="http://www.goya.com.au/baseelements/plugin">Download</a></p>
+</li>
+<li>
+<p>Time, Love &amp; Tenderness</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_installation">Installation</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the Base Elements plugin into FileMaker. <a href="http://help.filemaker.com/app/answers/detail/a_id/10097/~/installing-and-updating-plug-ins-in-filemaker-pro/">More Info.</a></p>
+</li>
+<li>
+<p>Login into the Openfire admin console and go to the plugins tab.  Click 'available plugins' and install the REST API plugin.</p>
+</li>
+<li>
+<p>Go to Server &gt; Server Settings and click REST API on the left hand column.</p>
+</li>
+<li>
+<p>Make sure you&#8217;ve enabled the plugin so it can receive API requests.</p>
+</li>
+<li>
+<p>Enable 'Select Secret key auth' option</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We are going to test with curl first to make sure you can connect to the REST API. Fire up your favorite terminal and enter the following.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sh" data-lang="sh">$ curl -X POST -H "Authorization: &lt;YOUR SECRET KEY AUTH&gt;" -H "Content-Type: application/xml" -d '&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;message&gt;&lt;body&gt;Hello Neighbor!&lt;/body&gt;&lt;/message&gt;' "http://yourserver.org:9090/plugins/restapi/v1/messages/users"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If everything was configured correctly, you should get a broadcast message with "Hello Neighbor!" as the message.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_filemaker_integration">FileMaker Integration</h3>
+<div class="paragraph">
+<p>If your test was successful, lets start crafting our FileMaker script.  Due to the API requiring we send some custom headers, we cannot use the built-in Insert URL function, but have to rely on a plugin instead.  In this example we will be using the excellent and free <a href="http://www.goya.com.au/baseelements/plugin/">Base Elements Plugin</a>.</p>
+</div>
+<div class="paragraph">
+<p>Create a FM script called Openfire API</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Set Variable [ $url; Value:"http://yourserver.org:9090/plugins/restapi/v1/messages/users" ]
+Set Variable [ $header; Value:BE_HTTP_Set_Custom_Header ( "Authorization"; "&lt;YOUR SECRET KEY AUTH&gt;") ]
+Set Variable [ $header; Value:BE_HTTP_Set_Custom_Header ( "Content-Type"; "application/xml") ]
+Set Variable [ $body; Value:"&lt;?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?&gt;&lt;message&gt;&lt;body&gt;Hello Neightbor!&lt;/body&gt;&lt;/message&gt;" ]
+Set Variable [ $post; Value:BE_HTTP_POST ( $url; $body) ]
+# Show Trace for Debugging - This is optional although it will help debug any potential issues.
+Show Custom Dialog [ Title: "Trace"; Message: BE_Curl_Trace; Default Button: “OK”, Commit: “Yes”; Button 2: “Cancel”, Commit: “No” ]
+Exit Script[]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run the script and you should get the same result as when you executed the HTTP POST using curl.  Magic!</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_thanks">Thanks</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>An invaluable tool while testing was <a href="https://www.getpostman.com/">Postman</a>.  If you don&#8217;t know about it, you should download and install ASAP.  It&#8217;s a free plugin for Chrome.</p>
+</li>
+<li>
+<p>The guys over at <a href="http://www.igniterealtime.org">Ignite Realtime</a></p>
+</li>
+<li>
+<p>The FileMaker community, especially the guys over at FMSLUG.</p>
+</li>
+<li>
+<p>BaseElements for the free plugin that makes this work.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>]]></description><link>http://blog.jarbro.com/2016/08/17/File-Maker-Openfire-API-Integration.html</link><guid isPermaLink="true">http://blog.jarbro.com/2016/08/17/File-Maker-Openfire-API-Integration.html</guid><category><![CDATA[filemaker]]></category><category><![CDATA[xmpp]]></category><category><![CDATA[openfire]]></category><dc:creator><![CDATA[Jared Brodsky]]></dc:creator><pubDate>Wed, 17 Aug 2016 00:00:00 GMT</pubDate></item></channel></rss>
