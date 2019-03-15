@@ -15,9 +15,9 @@ Here we install _python3-pip_ and _qrencode_ so we can generate our secret, ID, 
  $ sudo apt install python3-pip qrencode
  
 Next we install the _python-vipaccess_ tool from https://github.com/dlenski/[dlenksi's github repo].
-....
-$ pip3 install https://github.com/dlenski/python-vipaccess/archive/HEAD.zip
-....
+
+ $ pip3 install https://github.com/dlenski/python-vipaccess/archive/HEAD.zip
+
 Now we are going to generate our VIP Access token
 
  $ vipaccess provision -p -t SYMC
