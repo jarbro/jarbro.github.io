@@ -1,4 +1,4 @@
-= Generate Symantec VIP Access Token as OTP
+# Generate Symantec VIP Access Token as OTP
 See https://github.com/dlenski/python-vipaccess for information about the parameters.
 
 :published_at: 2019-03-15
@@ -8,7 +8,7 @@ Recently I came across a web service that required two-factor authentication usi
 
 There is a way to generate a Symantec VIP Access compatible token very easily if you have access to an environment which can run Python PIP. I happen to have Ubuntu  https://docs.microsoft.com/en-us/windows/wsl/install-win10[Windows Subsystem Linux] running on my machine. (If you are running Windows 10 and don't have this you should really check it out.) Let's get started...
 
-== Instructions
+## Instructions
 
 Here we install _python3-pip_ and _qrencode_ so we can generate our secret, ID, and QR code.
 
