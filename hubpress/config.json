@@ -13,7 +13,7 @@
     "disqus": "jarbro",
     "logo": "",
     "delay": "",
-    "postsPerPage": "",
+    "postsPerPage": "5",
     "blogPath": ""
   },
   "socialnetwork": {
@@ -31,12 +31,12 @@
     "opencollective": ""
   },
   "theme": {
-    "name": "casper"
+    "name": "ghostium"
   },
   "urls": {
     "site": "http://blog.jarbro.com",
     "hubpress": "http://blog.jarbro.com",
-    "theme": "//blog.jarbro.com/themes/ghostium",
+    "theme": "//blog.jarbro.com/themes/casper",
     "images": "http://blog.jarbro.com/images"
   },
   "initialisationConfigComponent": {
