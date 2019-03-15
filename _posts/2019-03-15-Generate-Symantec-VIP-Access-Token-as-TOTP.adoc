@@ -1,4 +1,4 @@
-= Convert Symantec VIP Access Token to TOTP
+= Generate Symantec VIP Access Token as TOTP
 See https://github.com/dlenski/python-vipaccess for information about the parameters.
 
 :published_at: 2019-03-15
